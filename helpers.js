@@ -1,20 +1,20 @@
 'use strict';
 
 const { format } = require('date-fns');
-const fs = require('fs').promises;
-const path = require('path');
-const sharp = require('sharp');
-const uuid = require('uuid');
+//const fs = require('fs').promises;
+//const path = require('path');
+//const sharp = require('sharp');
+//const uuid = require('uuid');
 
-const { UPLOAD_DIRECTORY } = process.env;
+//const { UPLOAD_DIRECTORY } = process.env;
 
-const staticDir = path.join(__dirname, UPLOAD_DIRECTORY);
+//const staticDir = path.join(__dirname, UPLOAD_DIRECTORY);
 
 function formatDateToDB(dateObject) {
   return format(dateObject, 'yyyy-MM-dd HH:mm:ss');
 }
 
-async function savePhoto(dataPhoto) {
+/* async function savePhoto(dataPhoto) {
   await fs.access(staticDir);
 
   // voy a leer la imagen con sharp
@@ -30,5 +30,5 @@ async function savePhoto(dataPhoto) {
   // devuelvo el nombre del file
   return photoName;
 }
-
-module.exports = { formatDateToDB, savePhoto };
+ */
+module.exports = { formatDateToDB /*  savePhoto */ };

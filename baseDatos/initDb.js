@@ -6,7 +6,7 @@
 // Ejecución: node./db/initDB.js
 
 require('dotenv').config();
-//const { formatDateToDB } = require('../helpers');
+const { formatDateToDB } = require('../helpers');
 
 const getDB = require('./db');
 
@@ -69,30 +69,30 @@ async function main() {
         );
     `);
 
-    /*  console.log('Creo usuario admin...');
+    console.log('Creo usuario admin...');
     await connection.query(`
-     INSERT INTO users(date, email, password, name, active, role)
+     INSERT INTO usuarios(name, email, password, active, rol, registrationDate)
      VALUES (
-      "${formatDateToDB(new Date())}",
-      "stefano.peraldini@hackaboss.com",
+      "Rocio",
+      "rociocollado@email.com",
       SHA2("${process.env.ADMIN_PASSWORD}", 512),
-      "Stefano Peraldini",
       true,
-      "admin"
+      "admin",
+      "${formatDateToDB(new Date())}"
      )
-     `); */
-    /*     console.log('Creo usuario de prueba...');
-    // FIXME: eliminar cuando tendremos implementada la creación de un usuario
+     `);
+    console.log('Creo usuario de prueba...');
+
     await connection.query(`
-     INSERT INTO users(date, email, password, name, active)
+     INSERT INTO usuarios( name,email, password,  active, registrationDate)
      VALUES (
-      "${formatDateToDB(new Date())}",
-      "stefano.peraldini@gmail.com",
+      "Maikel",
+      "maikelrey@email.com",
       SHA2("${process.env.USER_PASSWORD}", 512),
-      "Stefano Peraldini",
-      true
+      true,
+      "${formatDateToDB(new Date())}"
      )
-     `); */
+     `);
   } catch (error) {
     console.error('ERROR:', error.message);
   } finally {
