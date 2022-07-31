@@ -15,19 +15,38 @@ const {
   listar,
   subirArchivo,
 } = require('./gestion/archivos');
+const {
+  crearCarpeta,
+  editarNombreC,
+  eliminarCarpeta,
+} = require('./gestion/carpetas/');
 
 const { PORT } = process.env;
 
-//*****END POINTS */
+//*****END POINTS USUARIOS  */
 app.get('/usuarios/:id', mostrarUsuario);
+// POST - /users - Crear un usuario pendiente de activar
+app.post('/usuarios');
+// GET - /users/validate/:registrationCode - Validará un usuario recien registrado
+app.get('/usuarios/validar/:registrationCode');
+// POST - /users/login - Hará el login de un usuario y devolverá el TOKEN
+app.post('/usuarios/login');
+// PUT - /users/:id/password - Editar la contraseña de un usuario
+// Token obligatorio y mismo usuario
+app.put('/usuarios/password');
 
 /**END POINTS ARCHIVOS */
 
-app.get('/file//:id_archivo', descargarArchivo);
+app.get('/file/:id_archivo', descargarArchivo);
 app.put('/file/:id_archivo', editarNombreA);
 app.delete('/file/:id_archivo', eliminarArchivo);
 app.get('/folder', listar);
-app.post('/file/:nombre_archivo', subirArchivo);
+app.post('/file', subirArchivo);
+
+/**END POINTS CARPETAS */
+app.post('/folder/:nombre_carpeta', crearCarpeta);
+app.put('/folder/:id_carpeta', editarNombreC);
+app.delete('/folder/:id_carpeta', eliminarCarpeta);
 
 app.use((error, req, res, next) => {
   res
