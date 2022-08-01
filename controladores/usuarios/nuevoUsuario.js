@@ -1,7 +1,7 @@
 'use strict';
 const Joi = require('joi');
 const { generateError } = require('../../helpers');
-const { crearUsuario } = require('../../baseDatos/crearUsuario');
+const { crearUsuario } = require('../../baseDatos/usuarios');
 
 const nuevoUsuario = async (req, res, next) => {
   try {
@@ -26,19 +26,14 @@ const nuevoUsuario = async (req, res, next) => {
       throw generateError('Debes introducir un nombre válido', 400);
     }
     const id = await crearUsuario(name, email, password);
-    console.log(id);
 
-    console.log(req.body);
     res.send({
       status: 'ok',
       message: 'Usuario creado, pendiente de validar',
-      //data: id,
+      data: id,
     });
   } catch (error) {
     next(error);
-  } finally {
-    // if (connection) connection.release();
   }
 };
-
 module.exports = nuevoUsuario;
