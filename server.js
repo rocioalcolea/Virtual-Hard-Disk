@@ -7,7 +7,11 @@ app.use(express.json());
 const morgan = require('morgan');
 app.use(morgan('dev'));
 
-const { mostrarUsuario, nuevoUsuario } = require('./controladores/usuarios');
+const {
+  mostrarUsuario,
+  nuevoUsuario,
+  loguearUsuario,
+} = require('./controladores/usuarios');
 const {
   descargarArchivo,
   editarNombreA,
@@ -30,7 +34,7 @@ app.post('/usuarios', nuevoUsuario);
 // GET - /users/validate/:registrationCode - Validará un usuario recien registrado
 app.get('/usuarios/validar/:registrationCode');
 // POST - /users/login - Hará el login de un usuario y devolverá el TOKEN
-app.post('/usuarios/login');
+app.post('/usuarios/login', loguearUsuario);
 // PUT - /users/:id/password - Editar la contraseña de un usuario
 // Token obligatorio y mismo usuario
 app.put('/usuarios/password');

@@ -82,17 +82,6 @@ async function main() {
      )
      `);
     console.log('Creo usuario de prueba...');
-
-    await connection.query(`
-     INSERT INTO usuarios( name,email, password,  active, registrationDate)
-     VALUES (
-      "Maikel",
-      "maikelrey@email.com",
-      SHA2("${process.env.USER_PASSWORD}", 512),
-      true,
-      "${formatDateToDB(new Date())}" 
-     )
-     `);
   } catch (error) {
     console.error('ERROR:', error.message);
   } finally {

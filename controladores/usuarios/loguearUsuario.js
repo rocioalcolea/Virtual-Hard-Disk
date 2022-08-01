@@ -2,6 +2,8 @@
 
 const loguearUsuario = async (req, res, next) => {
   try {
+    const { name, email, password } = req.body;
+    console.log(name, email, password);
     res.send({
       status: 'ok',
       message: 'Usuario logueado',
@@ -9,8 +11,6 @@ const loguearUsuario = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  } finally {
-    // if (connection) connection.release();
   }
 };
 
