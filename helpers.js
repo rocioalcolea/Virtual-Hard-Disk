@@ -10,6 +10,12 @@ const { format } = require('date-fns');
 
 //const staticDir = path.join(__dirname, UPLOAD_DIRECTORY);
 
+const generateError = (message, status) => {
+  const error = new Error(message);
+  error.httpStatus = status;
+  return error;
+};
+
 function formatDateToDB(dateObject) {
   return format(dateObject, 'yyyy-MM-dd HH:mm:ss');
 }
@@ -31,4 +37,4 @@ function formatDateToDB(dateObject) {
   return photoName;
 }
  */
-module.exports = { formatDateToDB /*  savePhoto */ };
+module.exports = { formatDateToDB, generateError /*  savePhoto */ };

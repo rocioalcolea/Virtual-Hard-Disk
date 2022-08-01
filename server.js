@@ -7,26 +7,26 @@ app.use(express.json());
 const morgan = require('morgan');
 app.use(morgan('dev'));
 
-const { mostrarUsuario } = require('./gestion/usuarios/');
+const { mostrarUsuario, nuevoUsuario } = require('./controladores/usuarios');
 const {
   descargarArchivo,
   editarNombreA,
   eliminarArchivo,
   listar,
   subirArchivo,
-} = require('./gestion/archivos');
+} = require('./controladores/archivos');
 const {
   crearCarpeta,
   editarNombreC,
   eliminarCarpeta,
-} = require('./gestion/carpetas/');
+} = require('./controladores/carpetas');
 
 const { PORT } = process.env;
 
 //*****END POINTS USUARIOS  */
 app.get('/usuarios/:id', mostrarUsuario);
 // POST - /users - Crear un usuario pendiente de activar
-app.post('/usuarios');
+app.post('/usuarios', nuevoUsuario);
 // GET - /users/validate/:registrationCode - Validará un usuario recien registrado
 app.get('/usuarios/validar/:registrationCode');
 // POST - /users/login - Hará el login de un usuario y devolverá el TOKEN
@@ -40,7 +40,7 @@ app.put('/usuarios/password');
 app.get('/file/:id_archivo', descargarArchivo);
 app.put('/file/:id_archivo', editarNombreA);
 app.delete('/file/:id_archivo', eliminarArchivo);
-app.get('/folder', listar);
+app.get('/folder/:id_carpeta', listar);
 app.post('/file', subirArchivo);
 
 /**END POINTS CARPETAS */

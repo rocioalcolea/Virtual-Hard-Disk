@@ -90,7 +90,7 @@ async function main() {
       "maikelrey@email.com",
       SHA2("${process.env.USER_PASSWORD}", 512),
       true,
-      "${formatDateToDB(new Date())}"
+      "${formatDateToDB(new Date())}" 
      )
      `);
   } catch (error) {
