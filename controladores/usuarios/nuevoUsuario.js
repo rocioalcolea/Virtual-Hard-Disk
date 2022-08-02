@@ -1,37 +1,26 @@
 'use strict';
-const Joi = require('joi');
-const { generateError } = require('../../helpers');
+
 const { crearUsuario } = require('../../baseDatos/usuarios');
+const comprobarCampos = require('./comprobarCampos');
 
 const nuevoUsuario = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
+    const comprueba = await comprobarCampos(email, password);
+    if (comprueba && name) {
+      const id = await crearUsuario(name, email, password);
 
-    const schemaEmail = Joi.string().email().required();
-    const schemaPass = Joi.required();
-    const schemaNombre = Joi.required();
-
-    let validation = schemaEmail.validate(email);
-    if (validation.error) {
-      throw generateError('Debes introducir un email válido', 400);
+      res.send({
+        status: 'ok',
+        message: 'Usuario creado, pendiente de validar',
+        data: id,
+      });
+    } else {
+      res.send({
+        status: 'error',
+        message: 'Comprueba que los campos se han itroducido correctamente',
+      });
     }
-
-    validation = schemaPass.validate(password);
-    if (validation.error) {
-      throw generateError('Debes introducir una password válida', 400);
-    }
-
-    validation = schemaNombre.validate(name);
-    if (validation.error) {
-      throw generateError('Debes introducir un nombre válido', 400);
-    }
-    const id = await crearUsuario(name, email, password);
-
-    res.send({
-      status: 'ok',
-      message: 'Usuario creado, pendiente de validar',
-      data: id,
-    });
   } catch (error) {
     next(error);
   }
