@@ -9,9 +9,6 @@ const modificarUsuario = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  } finally {
-    // if (connection) connection.release();
   }
 };
-
 module.exports = modificarUsuario;

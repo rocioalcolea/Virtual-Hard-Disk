@@ -21,7 +21,7 @@ const {
   subirArchivo,
 } = require('./controladores/archivos');
 const {
-  crearCarpeta,
+  nuevaCarpeta,
   editarNombreC,
   eliminarCarpeta,
 } = require('./controladores/carpetas');
@@ -49,7 +49,7 @@ app.get('/folder/:id_carpeta', listar);
 app.post('/file', subirArchivo);
 
 /**END POINTS CARPETAS */
-app.post('/folder/:nombre_carpeta', propietario, crearCarpeta);
+app.post('/folder/:nombre_carpeta', propietario, nuevaCarpeta);
 app.put('/folder/:id_carpeta', editarNombreC);
 app.delete('/folder/:id_carpeta', eliminarCarpeta);
 

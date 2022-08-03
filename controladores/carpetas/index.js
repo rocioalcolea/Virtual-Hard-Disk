@@ -1,11 +1,11 @@
 'use strict';
 
-const crearCarpeta = require('./crearCarpeta');
+const nuevaCarpeta = require('./nuevaCarpeta');
 const editarNombreC = require('./editarNombreC');
 const eliminarCarpeta = require('./eliminarCarpeta');
 
 module.exports = {
-  crearCarpeta,
+  nuevaCarpeta,
   editarNombreC,
   eliminarCarpeta,
 };

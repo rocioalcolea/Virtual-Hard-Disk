@@ -11,6 +11,7 @@ const propietario = (req, res, next) => {
     }
     //comprobamos que el token sea correcto
     let token;
+
     try {
       token = jwt.verify(authorization, process.env.SECRET);
     } catch (error) {
