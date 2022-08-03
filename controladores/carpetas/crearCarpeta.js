@@ -2,6 +2,8 @@
 
 const crearCarpeta = async (req, res, next) => {
   try {
+    const idUsuario = req.idPropietario;
+    console.log('usuario', idUsuario);
     res.send({
       status: 'ok',
       message: 'Crear Carpeta',
@@ -9,8 +11,6 @@ const crearCarpeta = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  } finally {
-    // if (connection) connection.release();
   }
 };
 

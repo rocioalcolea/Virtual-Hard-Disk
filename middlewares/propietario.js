@@ -1,0 +1,32 @@
+const { generateError } = require('../helpers');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const propietario = (req, res, next) => {
+  try {
+    console.log(req.headers);
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      throw generateError('falta la cabecera de autorizacion');
+    }
+    //comprobamos que el token sea correcto
+    let token;
+    try {
+      token = jwt.verify(authorization, process.env.SECRET);
+    } catch (error) {
+      throw generateError('token incorrecto', 401);
+    }
+
+    //metemos la informacion del token en la req para usarla en el controlador
+    req.idPropietario = token.id;
+
+    //saltamos al controlador
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  propietario,
+};

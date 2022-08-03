@@ -24,7 +24,7 @@ const {
   editarNombreC,
   eliminarCarpeta,
 } = require('./controladores/carpetas');
-
+const { propietario } = require('./middlewares/propietario');
 const { PORT } = process.env;
 
 //*****END POINTS USUARIOS  */
@@ -48,7 +48,7 @@ app.get('/folder/:id_carpeta', listar);
 app.post('/file', subirArchivo);
 
 /**END POINTS CARPETAS */
-app.post('/folder/:nombre_carpeta', crearCarpeta);
+app.post('/folder/:nombre_carpeta', propietario, crearCarpeta);
 app.put('/folder/:id_carpeta', editarNombreC);
 app.delete('/folder/:id_carpeta', eliminarCarpeta);
 
