@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const propietario = (req, res, next) => {
   try {
-    console.log(req.headers);
     const { authorization } = req.headers;
 
     if (!authorization) {

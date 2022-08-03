@@ -50,8 +50,8 @@ app.post('/file', subirArchivo);
 
 /**END POINTS CARPETAS */
 app.post('/folder/:nombre_carpeta', propietario, nuevaCarpeta);
-app.put('/folder/:id_carpeta', editarNombreC);
-app.delete('/folder/:id_carpeta', eliminarCarpeta);
+app.put('/folder/:id_carpeta', propietario, editarNombreC);
+app.delete('/folder/:id_carpeta', propietario, eliminarCarpeta);
 
 app.use((error, req, res, next) => {
   res
