@@ -1,8 +1,21 @@
 'use strict';
 
+const { generateError } = require('../../helpers');
+const { modificarPermisos } = require('../../baseDatos/directorios');
 const editarPermisos = async (req, res, next) => {
-  console.log('entra aqui');
   try {
+    const idUsuario = req.idPropietario;
+    const { nombreCarpeta, publico } = req.body;
+
+    if (!nombreCarpeta || !publico) {
+      throw generateError(
+        'Debes introducir nombre de carpeta con longitud menor que 100',
+        400
+      );
+    }
+    const id = await modificarPermisos(idUsuario, nombreCarpeta, publico);
+    console.log(id);
+
     res.send({
       status: 'ok',
       message: 'Editar Permisos Carpeta',

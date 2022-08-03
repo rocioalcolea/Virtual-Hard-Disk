@@ -54,4 +54,27 @@ const modificarNombreCarpeta = async (
   }
 };
 
-module.exports = { crearCarpeta, modificarNombreCarpeta };
+const modificarPermisos = async (idUsuario, nombreCarpeta, publico) => {
+  let connection;
+  try {
+    connection = await getDB();
+    const [directorio] = await connection.query(
+      `SELECT id_usuario, name FROM directorios where id_usuario=? AND name=?
+      `,
+      [idUsuario, nombreCarpeta]
+    );
+    console.log(directorio);
+    if (directorio[0] === 0) {
+      throw generateError('Esa carpeta no existe o no le pertenece', 400);
+    }
+    const [result] = await connection.query(
+      ` UPDATE directorios SET  publico=? WHERE name=?`,
+      [publico, nombreCarpeta]
+    );
+    return result;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+module.exports = { crearCarpeta, modificarNombreCarpeta, modificarPermisos };
