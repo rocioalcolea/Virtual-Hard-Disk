@@ -58,8 +58,35 @@ const mostrarUsuarioPorId = async (id) => {
     if (connection) connection.release;
   }
 };
+const activarUsuario = async (registrationCode) => {
+  let connection;
+  try {
+    connection = await getDB();
+    const [result] = await connection.query(
+      `
+      SELECT id_usuario FROM usuarios WHERE registrationCode=?
+    `,
+      [registrationCode]
+    );
+    if (result.length === 0) {
+      throw generateError('Ningún código de validación encontrado', 404);
+    }
+    // activo el usuario y borro registrationCode
+    await connection.query(
+      `
+        UPDATE usuarios
+        SET active=true, registrationCode=NULL
+        WHERE registrationCode=?
+    `,
+      [registrationCode]
+    );
+    return true;
+  } finally {
+    if (connection) connection.release;
+  }
+};
 
-const crearUsuario = async (name, email, password) => {
+const crearUsuario = async (name, email, password, registrationCode) => {
   let connection;
 
   try {
@@ -86,9 +113,16 @@ const crearUsuario = async (name, email, password) => {
     //crear usuario
     const [nuevoUsuario] = await connection.query(
       `
-    INSERT INTO usuarios(name,email,password,active,registrationDate) VALUES (?,?,?,?,?)
+    INSERT INTO usuarios(name,email,password,active,registrationDate,registrationCode) VALUES (?,?,?,?,?,?)
     `,
-      [name, email, passwordHash, false, formatDateToDB(new Date())]
+      [
+        name,
+        email,
+        passwordHash,
+        false,
+        formatDateToDB(new Date()),
+        registrationCode,
+      ]
     );
 
     //devolver la id
@@ -105,4 +139,5 @@ module.exports = {
   crearUsuario,
   mostrarUsuarioPorId,
   mostrarUsuarioPorEmail,
+  activarUsuario,
 };

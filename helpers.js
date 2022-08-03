@@ -1,15 +1,10 @@
 'use strict';
-
+require('dotenv').config();
 const { format } = require('date-fns');
-//const fs = require('fs').promises;
-//const path = require('path');
-//const sharp = require('sharp');
-//const uuid = require('uuid');
+const crypto = require('crypto');
+const sgEmail = require('@sendgrid/mail');
 
-//const { UPLOAD_DIRECTORY } = process.env;
-
-//const staticDir = path.join(__dirname, UPLOAD_DIRECTORY);
-
+sgEmail.setApiKey(process.env.SENDGRID_API_KEY);
 const generateError = (message, status) => {
   const error = new Error(message);
   error.httpStatus = status;
@@ -20,21 +15,34 @@ function formatDateToDB(dateObject) {
   return format(dateObject, 'yyyy-MM-dd HH:mm:ss');
 }
 
-/* async function savePhoto(dataPhoto) {
-  await fs.access(staticDir);
-
-  // voy a leer la imagen con sharp
-  const imagen = sharp(dataPhoto.data);
-
-  // genero un nombre unico para la imagen
-  //upload_UUID_nombreoriginal
-  const photoName = `upload_${uuid.v4()}_${dataPhoto.name}`;
-
-  // guardo el file (buffer) en static/
-  await imagen.toFile(path.join(staticDir, photoName));
-
-  // devuelvo el nombre del file
-  return photoName;
+function generarCadenaAleatoria(byteString) {
+  return crypto.randomBytes(byteString).toString('hex');
 }
- */
-module.exports = { formatDateToDB, generateError /*  savePhoto */ };
+async function sendEmail({ to, subject, body }) {
+  try {
+    console.log(body);
+    const msg = {
+      to,
+      from: process.env.SENDGRID_FROM,
+      subject,
+      text: body,
+      html: `
+        <div>
+        <h1>${subject}</h1>
+        <p>${body}</p>
+        </div>
+        `,
+    };
+
+    await sgEmail.send(msg);
+  } catch (error) {
+    throw new Error('Error enviando email');
+  }
+}
+
+module.exports = {
+  formatDateToDB,
+  sendEmail,
+  generateError,
+  generarCadenaAleatoria,
+};

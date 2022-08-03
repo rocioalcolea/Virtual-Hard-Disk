@@ -3,7 +3,7 @@ const { generateError } = require('../../helpers');
 
 const comprobarCampos = async (email, password) => {
   const schemaEmail = Joi.string().email().required();
-  const schemaPass = Joi.required();
+  const schemaPass = Joi.string().required().min(6).max(20);
 
   let validation = schemaEmail.validate(email);
   if (validation.error) {

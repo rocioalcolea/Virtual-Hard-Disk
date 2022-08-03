@@ -11,6 +11,7 @@ const {
   mostrarUsuario,
   nuevoUsuario,
   loguearUsuario,
+  validarUsuario,
 } = require('./controladores/usuarios');
 const {
   descargarArchivo,
@@ -32,7 +33,7 @@ app.get('/usuarios/:id', mostrarUsuario);
 // POST - /users - Crear un usuario pendiente de activar
 app.post('/usuarios', nuevoUsuario);
 // GET - /users/validate/:registrationCode - Validará un usuario recien registrado
-app.get('/usuarios/validar/:registrationCode');
+app.get('/usuarios/validar/:registrationCode', validarUsuario);
 // POST - /users/login - Hará el login de un usuario y devolverá el TOKEN
 app.post('/usuarios/login', loguearUsuario);
 // PUT - /users/:id/password - Editar la contraseña de un usuario

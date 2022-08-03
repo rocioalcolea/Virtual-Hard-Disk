@@ -1,7 +1,11 @@
 'use strict';
-
+const { activarUsuario } = require('../../baseDatos/usuarios');
 const validarUsuario = async (req, res, next) => {
+  const { registrationCode } = req.params;
+
   try {
+    await activarUsuario(registrationCode);
+
     res.send({
       status: 'ok',
       message: 'Usuario validado',
@@ -9,9 +13,6 @@ const validarUsuario = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  } finally {
-    // if (connection) connection.release();
   }
 };
-
 module.exports = validarUsuario;
