@@ -17,15 +17,11 @@ const subirFichero = async (req, res, next) => {
     }
 
     const id = await subirArchivo(idUsuario, fichero.name, nombreCarpeta);
-    console.log(
-      path.join(__dirname, `/../../discoDuro/${idUsuario}/${fichero.name}`)
-    );
 
     if (id) {
       await fichero.mv(
         path.join(__dirname, `/../../discoDuro/${idUsuario}/${fichero.name}`)
       );
-      console.log('todo ok');
     }
     res.send({
       status: 'ok',
