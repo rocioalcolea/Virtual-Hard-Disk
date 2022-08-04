@@ -1,6 +1,9 @@
 'use strict';
+
 const { generateError } = require('../../helpers');
 const { subirArchivo } = require('../../baseDatos/archivos');
+//onst fs = require('fs').promises;
+const path = require('path');
 
 const subirFichero = async (req, res, next) => {
   try {
@@ -14,6 +17,9 @@ const subirFichero = async (req, res, next) => {
 
     const id = await subirArchivo(idUsuario, fichero.name, nombreCarpeta);
     if (id) {
+      await fichero.toFile(
+        path.join(__dirname, `discoDuro`, `${idUsuario}`, `${fichero.name}`)
+      );
       console.log('todo ok');
     }
     res.send({

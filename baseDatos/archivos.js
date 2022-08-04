@@ -6,10 +6,11 @@ const getDB = require('./db');
 const subirArchivo = async (
   idUsuario,
   nombreArchivo,
-  nombreCarpeta,
+  nombreCarpeta = '9',
   publico = false
 ) => {
   let connection;
+  console.log(idUsuario, nombreArchivo, nombreCarpeta, publico);
   try {
     connection = await getDB();
 
@@ -19,7 +20,7 @@ const subirArchivo = async (
       `,
       [idUsuario, nombreCarpeta]
     );
-
+    console.log(idUsuario, directorio);
     if (directorio[0] === 0) {
       throw generateError(
         'No se puede subir archivo porque no se encuentra la carpeta',
@@ -27,11 +28,13 @@ const subirArchivo = async (
       );
     }
     //existe ya el archivo con ese nombre, en esa carpeta de ese dueño?
+    console.log('LLEGA AQUI');
+
     const id_directorio = directorio[0].id_directorio;
     const [isExist] = await connection.query(
       `SELECT id_archivo FROM archivos  WHERE id_usuario=? AND name=? AND id_directorio=?
         `,
-      [idUsuario, nombreArchivo, id_directorio]
+      [idUsuario, nombreArchivo, directorio[0].id_directorio]
     );
 
     if (isExist[0] != undefined) {

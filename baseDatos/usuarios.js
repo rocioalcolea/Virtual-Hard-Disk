@@ -128,8 +128,16 @@ const crearUsuario = async (name, email, password, registrationCode) => {
     //creo la carpeta de usuario donde podrá guardar sus ficheros
     const nuevaCarpetaUsuario = path.join(
       __dirname,
-      `../discoDuro/${nuevoUsuario.insertId}`
+      `..`,
+      `discoDuro`,
+      `${nuevoUsuario.insertId}`
     );
+    //creo su carpeta raiz en la base de datos
+    await connection.query(
+      ` INSERT INTO directorios (id_usuario, name,publico) VALUES (?,?,?)`,
+      [nuevoUsuario.insertId, nuevoUsuario.insertId, false]
+    );
+
     try {
       await fs.mkdir(nuevaCarpetaUsuario);
     } catch (error) {

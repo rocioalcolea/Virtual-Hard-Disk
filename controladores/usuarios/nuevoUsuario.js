@@ -9,7 +9,7 @@ const nuevoUsuario = async (req, res, next) => {
     // Creo un código de registro (contraseña temporal de un solo uso)
     const registrationCode = generarCadenaAleatoria(40);
 
-    //email con enlace de activacions
+    //email con enlace de activaciones
     const mail = `
    Acabas de crear una cuenta en DISCO DURO VIRTUAL.
    Pulsa en este enlace para activar el usuario: ${process.env.PUBLIC_HOST}/usuarios/validar/${registrationCode}
