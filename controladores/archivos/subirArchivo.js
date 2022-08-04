@@ -2,7 +2,8 @@
 
 const { generateError } = require('../../helpers');
 const { subirArchivo } = require('../../baseDatos/archivos');
-//onst fs = require('fs').promises;
+//const fs = require('fs').promises;
+
 const path = require('path');
 
 const subirFichero = async (req, res, next) => {
@@ -16,9 +17,13 @@ const subirFichero = async (req, res, next) => {
     }
 
     const id = await subirArchivo(idUsuario, fichero.name, nombreCarpeta);
+    console.log(
+      path.join(__dirname, `/../../discoDuro/${idUsuario}/${fichero.name}`)
+    );
+
     if (id) {
-      await fichero.toFile(
-        path.join(__dirname, `discoDuro`, `${idUsuario}`, `${fichero.name}`)
+      await fichero.mv(
+        path.join(__dirname, `/../../discoDuro/${idUsuario}/${fichero.name}`)
       );
       console.log('todo ok');
     }
