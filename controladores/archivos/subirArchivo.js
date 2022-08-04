@@ -10,17 +10,37 @@ const subirFichero = async (req, res, next) => {
   try {
     const idUsuario = req.idPropietario;
     const { nombreCarpeta } = req.body;
+
     const { fichero } = req.files;
-    console.log(fichero);
-    if (!nombreCarpeta || !fichero) {
-      throw generateError('La carpeta o el fichero no existen', 400);
+
+    if (!fichero) {
+      throw generateError('El fichero no existe', 400);
     }
 
     const id = await subirArchivo(idUsuario, fichero.name, nombreCarpeta);
-
-    if (id) {
+    if (nombreCarpeta == undefined) {
+      if (id) {
+        await fichero.mv(
+          path.join(
+            __dirname,
+            `..`,
+            `..`,
+            `discoDuro`,
+            `${idUsuario}`,
+            `root<>${fichero.name}`
+          )
+        );
+      }
+    } else {
       await fichero.mv(
-        path.join(__dirname, `/../../discoDuro/${idUsuario}/${fichero.name}`)
+        path.join(
+          __dirname,
+          `..`,
+          `..`,
+          `discoDuro`,
+          `${idUsuario}`,
+          `${nombreCarpeta}<>${fichero.name}`
+        )
       );
     }
     res.send({
