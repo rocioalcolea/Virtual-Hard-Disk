@@ -1,9 +1,10 @@
 'use strict';
 const bcrypt = require('bcrypt');
 require('dotenv').config();
-
+const path = require('path');
 const { generateError, formatDateToDB } = require('../helpers');
 const getDB = require('./db');
+const fs = require('fs').promises;
 
 const mostrarUsuarioPorEmail = async (email) => {
   // pido conneción al DB
@@ -124,9 +125,17 @@ const crearUsuario = async (name, email, password, registrationCode) => {
         registrationCode,
       ]
     );
-
+    //creo la carpeta de usuario donde podrá guardar sus ficheros
+    const nuevaCarpetaUsuario = path.join(
+      __dirname,
+      `../discoDuro/${nuevoUsuario.insertId}`
+    );
+    try {
+      await fs.mkdir(nuevaCarpetaUsuario);
+    } catch (error) {
+      throw generateError('no se puede crear la carpeta de usuario', 500);
+    }
     //devolver la id
-
     return nuevoUsuario.insertId;
   } finally {
     if (connection) {

@@ -77,4 +77,8 @@ const modificarPermisos = async (idUsuario, nombreCarpeta, publico) => {
   }
 };
 
-module.exports = { crearCarpeta, modificarNombreCarpeta, modificarPermisos };
+module.exports = {
+  crearCarpeta,
+  modificarNombreCarpeta,
+  modificarPermisos,
+};

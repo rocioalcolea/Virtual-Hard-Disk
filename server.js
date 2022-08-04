@@ -1,7 +1,10 @@
 require('dotenv').config();
-
+const fileUpload = require('express-fileupload');
 const express = require('express');
+
 const app = express();
+
+app.use(fileUpload());
 app.use(express.json());
 
 const morgan = require('morgan');
@@ -47,7 +50,7 @@ app.get('/file/:id_archivo', descargarArchivo);
 app.put('/file/:id_archivo', editarNombreA);
 app.delete('/file/:id_archivo', eliminarArchivo);
 app.get('/folder/:id_carpeta', listar);
-app.post('/file', subirArchivo);
+app.post('/file', propietario, subirArchivo);
 
 /**END POINTS CARPETAS */
 app.post('/folder/:nombre_carpeta', propietario, nuevaCarpeta);
