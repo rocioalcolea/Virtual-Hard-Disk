@@ -31,7 +31,6 @@ const subirArchivo = async (
         [idUsuario, nombreCarpeta]
       );
     }
-    console.log('lo que sale es', directorio[0]);
 
     if (directorio[0] === undefined) {
       throw generateError(
@@ -71,4 +70,33 @@ const subirArchivo = async (
   }
 };
 
-module.exports = { subirArchivo };
+const mostrarFicheros = async (idCarpeta) => {
+  let connection;
+  const id_carpeta = idCarpeta.id_carpeta;
+
+  try {
+    connection = await getDB();
+    let directorio = [];
+
+    //buscar el id del directorio a traves de su nombre
+
+    [directorio] = await connection.query(
+      `SELECT id_archivo, name_real FROM archivos  WHERE id_directorio=? 
+      `,
+      [id_carpeta]
+    );
+
+    if (directorio[0] === undefined) {
+      throw generateError(
+        'No se puede subir archivo porque no se encuentra la carpeta',
+        400
+      );
+    }
+
+    console.log(directorio);
+    return directorio;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+module.exports = { subirArchivo, mostrarFicheros };
