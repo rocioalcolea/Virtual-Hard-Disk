@@ -3,7 +3,6 @@
 const { generateError } = require('../../helpers');
 const { subirArchivo } = require('../../baseDatos/archivos');
 const { v4: uuidv4 } = require('uuid');
-//const fs = require('fs').promises;
 
 const path = require('path');
 
@@ -31,7 +30,14 @@ const subirFichero = async (req, res, next) => {
 
     if (id) {
       await fichero.mv(
-        path.join(__dirname, `..`, `..`, `discoDuro`, `${nombreEncriptado}`)
+        path.join(
+          __dirname,
+          `..`,
+          `..`,
+          `discoDuro`,
+          `${idUsuario}`,
+          `${nombreEncriptado}`
+        )
       );
     }
 

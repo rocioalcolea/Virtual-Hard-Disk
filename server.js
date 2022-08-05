@@ -48,7 +48,7 @@ app.put('/usuarios/password');
 
 app.get('/file/:id_archivo', descargarArchivo);
 app.put('/file/:id_archivo', editarNombreA);
-app.delete('/file/:id_archivo', eliminarArchivo);
+app.delete('/file/:id_archivo', propietario, eliminarArchivo);
 app.get('/folder/:id_carpeta', propietario, listar);
 app.post('/file', propietario, subirArchivo);
 

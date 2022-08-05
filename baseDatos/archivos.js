@@ -93,10 +93,56 @@ const mostrarFicheros = async (idCarpeta) => {
       );
     }
 
-    console.log(directorio);
     return directorio;
   } finally {
     if (connection) connection.release();
   }
 };
-module.exports = { subirArchivo, mostrarFicheros };
+
+const borrarFichero = async (idUsuario, nombreDirectorio, nombreArchivo) => {
+  let connection;
+
+  try {
+    connection = await getDB();
+
+    //buscar el id del directorio a traves de su nombre
+    const [directorio] = await connection.query(
+      `SELECT id_directorio FROM directorios  WHERE id_usuario=? AND name=?
+    `,
+      [idUsuario, nombreDirectorio]
+    );
+
+    if (directorio[0] === undefined) {
+      throw generateError('No se encuentra la carpeta', 400);
+    }
+    const id_directorio = directorio[0].id_directorio;
+
+    //buscar el id del directorio a traves de su nombre
+    const [archivo] = await connection.query(
+      `SELECT id_archivo, name_encriptado FROM archivos  WHERE id_usuario=? AND name_real=?
+    `,
+      [idUsuario, nombreArchivo]
+    );
+
+    if (archivo[0] === undefined) {
+      throw generateError('No se encuentra el archivo', 400);
+    }
+    const id_archivo = archivo[0].id_archivo;
+
+    try {
+      await connection.query(
+        `DELETE FROM archivos WHERE id_directorio=? AND id_usuario=? AND id_archivo=? 
+      `,
+        [id_directorio, idUsuario, id_archivo]
+      );
+    } catch (error) {
+      throw generateError('error al borrar el fichero', 400);
+    }
+
+    return archivo[0].name_encriptado;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+module.exports = { subirArchivo, mostrarFicheros, borrarFichero };
