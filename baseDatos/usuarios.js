@@ -126,6 +126,7 @@ const crearUsuario = async (name, email, password, registrationCode) => {
       ]
     );
     //creo la carpeta de usuario donde podrá guardar sus ficheros
+    console.log('llega aqui');
     const nuevaCarpetaUsuario = path.join(
       __dirname,
       `..`,

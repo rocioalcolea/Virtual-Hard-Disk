@@ -60,7 +60,8 @@ async function main() {
     await connection.query(`
     CREATE TABLE archivos(
         id_archivo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        name VARCHAR (100),
+        name_encriptado VARCHAR (100),
+        name_real VARCHAR(100),
         publico BOOLEAN DEFAULT false,
         id_usuario INT NOT NULL,
         FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),

@@ -2,6 +2,7 @@
 
 const { generateError } = require('../../helpers');
 const { subirArchivo } = require('../../baseDatos/archivos');
+const { v4: uuidv4 } = require('uuid');
 //const fs = require('fs').promises;
 
 const path = require('path');
@@ -16,33 +17,24 @@ const subirFichero = async (req, res, next) => {
     if (!fichero) {
       throw generateError('El fichero no existe', 400);
     }
+    const extension = path.extname(fichero.name);
 
-    const id = await subirArchivo(idUsuario, fichero.name, nombreCarpeta);
-    if (nombreCarpeta == undefined) {
-      if (id) {
-        await fichero.mv(
-          path.join(
-            __dirname,
-            `..`,
-            `..`,
-            `discoDuro`,
-            `${idUsuario}`,
-            `root<>${fichero.name}`
-          )
-        );
-      }
-    } else {
+    const nombreEncriptado = `${uuidv4()}${extension}`;
+    console.log(nombreEncriptado);
+
+    const id = await subirArchivo(
+      idUsuario,
+      fichero.name,
+      nombreEncriptado,
+      nombreCarpeta
+    );
+
+    if (id) {
       await fichero.mv(
-        path.join(
-          __dirname,
-          `..`,
-          `..`,
-          `discoDuro`,
-          `${idUsuario}`,
-          `${nombreCarpeta}<>${fichero.name}`
-        )
+        path.join(__dirname, `..`, `..`, `discoDuro`, `${nombreEncriptado}`)
       );
     }
+
     res.send({
       status: 'ok',
       message: 'Subir Archivo',
