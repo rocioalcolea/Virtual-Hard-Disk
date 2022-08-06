@@ -14,12 +14,11 @@ const editarPermisos = async (req, res, next) => {
       );
     }
     const id = await modificarPermisos(idUsuario, nombreCarpeta, publico);
-    console.log(id);
 
     res.send({
       status: 'ok',
       message: 'Editar Permisos Carpeta',
-      data: [],
+      data: [id],
     });
   } catch (error) {
     next(error);

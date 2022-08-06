@@ -19,7 +19,6 @@ const subirFichero = async (req, res, next) => {
     const extension = path.extname(fichero.name);
 
     const nombreEncriptado = `${uuidv4()}${extension}`;
-    console.log(nombreEncriptado);
 
     const id = await subirArchivo(
       idUsuario,

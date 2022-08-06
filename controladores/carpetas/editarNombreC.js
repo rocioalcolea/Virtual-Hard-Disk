@@ -18,12 +18,11 @@ const editarNombreC = async (req, res, next) => {
       nombreCarpeta,
       nuevoNombreCarpeta
     );
-    console.log(id);
 
     res.send({
       status: 'ok',
       message: 'Editar Nombre Carpeta',
-      data: [],
+      data: [id],
     });
   } catch (error) {
     next(error);

@@ -22,6 +22,7 @@ const {
   eliminarArchivo,
   listar,
   subirArchivo,
+  editarPermisosA,
 } = require('./controladores/archivos');
 const {
   nuevaCarpeta,
@@ -46,8 +47,9 @@ app.put('/usuarios/password');
 
 /**END POINTS ARCHIVOS */
 
-app.get('/file/:id_archivo', descargarArchivo);
-app.put('/file/:id_archivo', editarNombreA);
+app.get('/file/:id_archivo', propietario, descargarArchivo);
+app.put('/file/editarNombre/:id_archivo', propietario, editarNombreA);
+app.put('/file/permisos/', propietario, editarPermisosA);
 app.delete('/file/:id_archivo', propietario, eliminarArchivo);
 app.get('/folder/:id_carpeta', propietario, listar);
 app.post('/file', propietario, subirArchivo);

@@ -145,4 +145,102 @@ const borrarFichero = async (idUsuario, nombreDirectorio, nombreArchivo) => {
   }
 };
 
-module.exports = { subirArchivo, mostrarFicheros, borrarFichero };
+const modificarPermisos = async (
+  idUsuario,
+  nombreArchivo,
+  nombreCarpeta,
+  publico
+) => {
+  let connection;
+  try {
+    connection = await getDB();
+    const [directorio] = await connection.query(
+      `SELECT id_directorio FROM directorios where id_usuario=? AND  name=?
+      `,
+      [idUsuario, nombreCarpeta]
+    );
+    if (directorio[0] === undefined) {
+      throw generateError('Esa carpeta no existe o no le pertenece', 400);
+    }
+
+    const idCarpeta = directorio[0].id_directorio;
+
+    const [ArchivoByNombre] = await connection.query(
+      `SELECT id_archivo FROM archivos where id_usuario=? AND  name_real=? AND id_directorio=?
+      `,
+      [idUsuario, nombreArchivo, idCarpeta]
+    );
+
+    if (ArchivoByNombre[0] === undefined) {
+      throw generateError('Ese archivo no existe o no le pertenece', 400);
+    }
+
+    const idArchivo = ArchivoByNombre[0].id_archivo;
+    console.log('tengo', idUsuario, idCarpeta, idArchivo, nuevoNombreArchivo);
+
+    const [result] = await connection.query(
+      ` UPDATE archivos SET  publico=? WHERE id_archivo=?`,
+      [publico, idArchivo]
+    );
+    return result;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+const modificarNombreArchivo = async (
+  idUsuario,
+  nombreCarpeta,
+  nombreArchivo,
+  nuevoNombreArchivo
+) => {
+  let connection;
+  try {
+    connection = await getDB();
+    const [directorio] = await connection.query(
+      `SELECT id_directorio FROM directorios where id_usuario=? AND  name=?
+      `,
+      [idUsuario, nombreCarpeta]
+    );
+    if (directorio[0] === undefined) {
+      throw generateError('Esa carpeta no existe o no le pertenece', 400);
+    }
+
+    const idCarpeta = directorio[0].id_directorio;
+
+    const [ArchivoByNombre] = await connection.query(
+      `SELECT id_archivo FROM archivos where id_usuario=? AND  name_real=? AND id_directorio=?
+      `,
+      [idUsuario, nombreArchivo, idCarpeta]
+    );
+
+    if (ArchivoByNombre[0] === undefined) {
+      throw generateError('Ese archivo no existe o no le pertenece', 400);
+    }
+    const idArchivo = ArchivoByNombre[0].id_archivo;
+
+    const [archivos] = await connection.query(
+      `SELECT id_archivo FROM archivos where id_usuario=? AND id_archivo=? AND id_directorio=?
+      `,
+      [idUsuario, idArchivo, idCarpeta]
+    );
+
+    if (archivos[0] === undefined) {
+      throw generateError('Ese archivo no existe', 400);
+    }
+    const [result] = await connection.query(
+      ` UPDATE archivos SET  name_real=? WHERE id_archivo=?`,
+      [nuevoNombreArchivo, idArchivo]
+    );
+    return result;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+module.exports = {
+  subirArchivo,
+  mostrarFicheros,
+  borrarFichero,
+  modificarPermisos,
+  modificarNombreArchivo,
+};
