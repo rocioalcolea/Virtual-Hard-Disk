@@ -176,7 +176,6 @@ const modificarPermisos = async (
     }
 
     const idArchivo = ArchivoByNombre[0].id_archivo;
-    console.log('tengo', idUsuario, idCarpeta, idArchivo, nuevoNombreArchivo);
 
     const [result] = await connection.query(
       ` UPDATE archivos SET  publico=? WHERE id_archivo=?`,

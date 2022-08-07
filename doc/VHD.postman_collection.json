@@ -12,9 +12,30 @@
 					"name": "editarNombreA",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nombreCarpeta\":\"nuevaCarpeta\",\n\"nombreArchivo\":\"photo.jpeg\",\n\"nuevoNombreArchivo\":\"fotooooo.jpg\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/file/1",
+							"raw": "http://localhost:3000/file/editarNombre/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -22,6 +43,7 @@
 							"port": "3000",
 							"path": [
 								"file",
+								"editarNombre",
 								"1"
 							]
 						}
@@ -52,7 +74,28 @@
 					"name": "eliminarArchivo",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nombreCarpeta\":\"nuevaCarpeta\",\n\"nombreFichero\":\"photo.jpeg\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:3000/file/2",
 							"protocol": "http",
@@ -72,16 +115,29 @@
 					"name": "listar",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/folder",
+							"raw": "http://localhost:3000/folder/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"folder"
+								"folder",
+								"4"
 							]
 						}
 					},
@@ -91,17 +147,107 @@
 					"name": "subirArchivo",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"description": "us5",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombreCarpeta",
+									"value": "nuevaCarpeta",
+									"type": "default"
+								},
+								{
+									"key": "fichero",
+									"type": "file",
+									"src": "photo.jpeg"
+								},
+								{
+									"key": "yoquese",
+									"value": "nio doid",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/file/fich.txt",
+							"raw": "http://localhost:3000/file",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"file"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editarPermisos",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"description": "us5",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nombreCarpeta\":\"nuevaCarpeta\",\n\"nombreArchivo\":\"photo.jpeg\",\n\"publico\":false}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/file/permisos/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
 								"file",
-								"fich.txt"
+								"permisos",
+								""
 							]
 						}
 					},
@@ -142,7 +288,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"Nicolás\",\n    \"email\":\"nicolas@email.com\",\n    \"password\":\"1234\"\n \n\n}",
+							"raw": "{\n    \"name\":\"la escalerita\",\n    \"email\":\"alaescalerita@gmail.com\",\n    \"password\":\"123456\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -165,6 +311,56 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "LoginUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n    \"email\":\"alaescalerita@gmail.com\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/usuarios/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ValidacionUsuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/usuarios/validar/079786f188d02d17ccbc508dbc6a1560dcfd3ef57917a77061fca94c61324bb18af155442dcf1727",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"validar",
+								"079786f188d02d17ccbc508dbc6a1560dcfd3ef57917a77061fca94c61324bb18af155442dcf1727"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -175,15 +371,38 @@
 					"name": "crearCarpeta",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"description": "us5",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nombreCarpeta\": \"nuevaCarpeta\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/nuevaCarpeta",
+							"raw": "http://localhost:3000/folder/nuevaCarpeta",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"folder",
 								"nuevaCarpeta"
 							]
 						}
@@ -194,9 +413,24 @@
 					"name": "editarNombreC",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nombreCarpeta\":\"nuevaCarpeta\",\n\"nuevoNombreCarpeta\":\"nuevaCarpeta2\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/folder/1",
+							"raw": "http://localhost:3000/folder/editarNombre",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -204,7 +438,7 @@
 							"port": "3000",
 							"path": [
 								"folder",
-								"1"
+								"editarNombre"
 							]
 						}
 					},
@@ -214,9 +448,15 @@
 					"name": "eliminarCarpeta",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/folder/1",
+							"raw": "http://localhost:3000/folder/1?",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -225,6 +465,47 @@
 							"path": [
 								"folder",
 								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editarPermisos",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"nombreCarpeta\":\"nuevaCarpeta2\",\n\"publico\":true}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/folder/editarPermisos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"folder",
+								"editarPermisos"
 							]
 						}
 					},

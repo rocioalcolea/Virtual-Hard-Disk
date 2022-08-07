@@ -77,8 +77,25 @@ const modificarPermisos = async (idUsuario, nombreCarpeta, publico) => {
   }
 };
 
+const eliminarDirectorio = async (idUsuario, idDirectorio) => {
+  let connection;
+  try {
+    connection = await getDB();
+    const [directorio] = await connection.query(
+      `DELETE FROM directorios where id_usuario=? AND id_directorio=?
+      `,
+      [idUsuario, idDirectorio]
+    );
+
+    console.log(directorio);
+    return directorio;
+  } finally {
+    if (connection) connection.release();
+  }
+};
 module.exports = {
   crearCarpeta,
   modificarNombreCarpeta,
   modificarPermisos,
+  eliminarDirectorio,
 };
