@@ -3,53 +3,49 @@
 const { generateError } = require('../helpers');
 
 const getDB = require('./db');
+
+//funcion para buscar el nombre de la carpeta raiz.
+const buscarNombreRaizbyId = async (id) => {
+  let connection2;
+  try {
+    connection2 = await getDB();
+
+    const [nombre] = await connection2.query(
+      `SELECT name FROM directorios WHERE id_directorio=?`,
+      [id]
+    );
+
+    return nombre;
+  } finally {
+    if (connection2) connection2.release();
+  }
+};
+
+/**NOMBRE: subir fichero
+ * PARÁMETROS: id de usuario,nombre real del archivo, nombre encriptado del archivo, id del directorio
+ * si no tiene nombre que escriba root y permisos, por defecto false.
+ * FUNCION:subir fichero a directorio indicado o por defecto el raiz*/
 const subirArchivo = async (
   idUsuario,
-  nombreArchivoReal,
+  idDirectorio,
+  nombreRealFichero,
   nombreArchivoEncriptado,
-  nombreCarpeta = 'root',
   publico = false
 ) => {
   let connection;
-
   try {
     connection = await getDB();
-    let directorio = [];
+    //busco un archivo con ese nombre, en ese directorio y que pertenezca a ese usuario
 
-    //buscar el id del directorio a traves de su nombre
-    if (nombreCarpeta === 'root') {
-      [directorio] = await connection.query(
-        `SELECT id_directorio FROM directorios  WHERE id_usuario=? AND name=?
-      `,
-        [idUsuario, idUsuario]
-      );
-    } else {
-      //obtengo el id_directorio a traves de su nombre y del dueño de la carpeta
-      [directorio] = await connection.query(
-        `SELECT id_directorio FROM directorios  WHERE id_usuario=? AND name=?
-      `,
-        [idUsuario, nombreCarpeta]
-      );
-    }
-
-    if (directorio[0] === undefined) {
-      throw generateError(
-        'No se puede subir archivo porque no se encuentra la carpeta',
-        400
-      );
-    }
-
-    //existe ya el archivo con ese nombre, en esa carpeta de ese dueño?
-
-    const id_directorio = directorio[0].id_directorio;
-    const [isExist] = await connection.query(
+    const [directorio] = await connection.query(
       `SELECT id_archivo FROM archivos  WHERE id_usuario=? AND name_real=? AND id_directorio=?
         `,
-      [idUsuario, nombreArchivoReal, directorio[0].id_directorio]
+      [idUsuario, nombreRealFichero, idDirectorio]
     );
 
-    if (isExist[0] != undefined) {
-      throw generateError('Ya existe ese fichero en ese directorio', 400);
+    //si existe ese fichero lanzo error, para evitar duplicados.
+    if (directorio[0] != undefined) {
+      throw generateError('Ese nombre de fichero ya existe en la carpeta', 400);
     }
 
     //añado el nombre de fichero a la base de datos con el resto de los campos.
@@ -57,8 +53,8 @@ const subirArchivo = async (
       ` INSERT INTO archivos (id_usuario, id_directorio,name_real, name_encriptado,publico) VALUES (?,?,?,?,?)`,
       [
         idUsuario,
-        id_directorio,
-        nombreArchivoReal,
+        idDirectorio,
+        nombreRealFichero,
         nombreArchivoEncriptado,
         publico,
       ]
@@ -70,30 +66,46 @@ const subirArchivo = async (
   }
 };
 
-const mostrarFicheros = async (idCarpeta) => {
+/**NOMBRE: mostarFicheros
+ * PARÁMETROS: id directorio
+ * FUNCION: listar ficheros y directorios de dentro de una carpeta*/
+const mostrarFicheros = async (idDirectorio, idUsuario) => {
   let connection;
-  const id_carpeta = idCarpeta.id_carpeta;
 
   try {
     connection = await getDB();
     let directorio = [];
 
-    //buscar el id del directorio a traves de su nombre
-
-    [directorio] = await connection.query(
-      `SELECT id_archivo, name_real FROM archivos  WHERE id_directorio=? 
+    //busco los archivos pertenecientes a esa carpeta
+    const [archivos] = await connection.query(
+      `SELECT id_archivo, name_real FROM archivos  WHERE id_directorio=? AND id_usuario=?
       `,
-      [id_carpeta]
+      [idDirectorio, idUsuario]
     );
 
-    if (directorio[0] === undefined) {
-      throw generateError(
-        'No se puede subir archivo porque no se encuentra la carpeta',
-        400
+    //busco nobre raiz del directorio pasado por parametro
+    const idDir = await buscarNombreRaizbyId(idDirectorio);
+
+    //si el directorio es la raiz, que muestre tambien los directorios dependientes
+    if (idDir[0].name == idUsuario.toString()) {
+      [directorio] = await connection.query(
+        `SELECT id_directorio, name FROM directorios  WHERE name<>? AND id_usuario=?
+        `,
+        [idDir[0].name, idUsuario]
       );
     }
 
-    return directorio;
+    //si no hay archivos ni directorios en ese directorio que lance error
+    if (archivos[0] === undefined && directorio[0] === undefined) {
+      throw generateError('No hay archivos ni carpetas que mostrar', 400);
+    }
+
+    //creo result con todos los directorios y archivos encontrados en esa carpeta
+    const result = [];
+    result[0] = [...directorio];
+    result[1] = [...archivos];
+
+    return result;
   } finally {
     if (connection) connection.release();
   }

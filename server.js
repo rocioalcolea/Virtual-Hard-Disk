@@ -49,10 +49,10 @@ app.put('/usuarios/password');
 
 app.get('/file/:id_archivo', propietario, descargarArchivo);
 app.put('/file/editarNombre/:id_archivo', propietario, editarNombreA);
-app.put('/file/permisos/', propietario, editarPermisosA);
+app.put('/file/permisos/id_archivo', propietario, editarPermisosA);
 app.delete('/file/:id_archivo', propietario, eliminarArchivo);
+app.post('/file/subirArchivo/:id_carpeta', propietario, subirArchivo);
 app.get('/folder/listar/:id_carpeta', propietario, listar);
-app.post('/file', propietario, subirArchivo);
 
 /**END POINTS CARPETAS */
 app.post('/folder/crearCarpeta/', propietario, nuevaCarpeta);

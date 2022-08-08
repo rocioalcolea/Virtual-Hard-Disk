@@ -15,13 +15,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"description": "1",
 								"type": "default",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"value": "",
 								"type": "default"
 							}
 						],
@@ -54,7 +55,19 @@
 					"name": "descargarArchivo",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "default",
+								"disabled": true
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/file/1",
 							"protocol": "http",
@@ -77,14 +90,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"type": "default"
 							},
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
-								"type": "default"
+								"value": "",
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -118,18 +131,18 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"type": "default"
 							},
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
-								"type": "default"
+								"value": "",
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/folder/4",
+							"raw": "http://localhost:3000/folder/listar/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -137,6 +150,7 @@
 							"port": "3000",
 							"path": [
 								"folder",
+								"listar",
 								"4"
 							]
 						}
@@ -150,15 +164,15 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"type": "default"
 							},
 							{
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
 								"description": "us5",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
@@ -214,15 +228,15 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"type": "default"
 							},
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"value": "",
 								"description": "us5",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -262,9 +276,23 @@
 					"name": "mostrarUsuario",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
+								"description": "us5",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjU5OTQxNjU1LCJleHAiOjE2NjI1MzM2NTV9.HdPgXrC5cdsD03Y0J1NCY_X8YL4VYCarbTlyXaPQkbQ",
+								"description": "us6",
+								"type": "default",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": "http://127.0.0.1:3000/usuarios/2",
+							"raw": "http://127.0.0.1:3000/usuarios/5",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -275,7 +303,14 @@
 							"port": "3000",
 							"path": [
 								"usuarios",
-								"2"
+								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -288,7 +323,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"la escalerita\",\n    \"email\":\"alaescalerita@gmail.com\",\n    \"password\":\"123456\"\n}",
+							"raw": "{\n    \"name\":\"la escalerita\",\n    \"email\":\"alaescalerita6@gmail.com\",\n    \"password\":\"123456\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -319,7 +354,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \n    \"email\":\"alaescalerita@gmail.com\",\n    \"password\":\"123456\"\n}",
+							"raw": "{\n  \n    \"email\":\"alaescalerita6@gmail.com\",\n    \"password\":\"123456\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -374,20 +409,42 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"description": "us1",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "us5",
 								"type": "default",
 								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
-								"description": "us5",
-								"type": "default"
+								"value": "",
+								"description": "us6",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "US7",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "US8",
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"nombreCarpeta\": \"nuevaCarpeta\"}",
+							"raw": "{\"nombreCarpeta\":\"   Una Carpeta   Rocio \"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -395,7 +452,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/folder/nuevaCarpeta",
+							"raw": "http://localhost:3000/folder/crearCarpeta",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -403,7 +460,7 @@
 							"port": "3000",
 							"path": [
 								"folder",
-								"nuevaCarpeta"
+								"crearCarpeta"
 							]
 						}
 					},
@@ -416,13 +473,21 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"description": "us1",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "us7",
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"nombreCarpeta\":\"nuevaCarpeta\",\n\"nuevoNombreCarpeta\":\"nuevaCarpeta2\"}",
+							"raw": "{\"nuevoNombre\":\"NuEvA     cArPeTa\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -430,7 +495,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/folder/editarNombre",
+							"raw": "http://localhost:3000/folder/editarNombre/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -438,7 +503,8 @@
 							"port": "3000",
 							"path": [
 								"folder",
-								"editarNombre"
+								"editarNombre",
+								"2"
 							]
 						}
 					},
@@ -451,12 +517,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"description": "us1",
 								"type": "default"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/folder/1?",
+							"raw": "http://localhost:3000/folder/eliminarCarpeta/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -464,13 +531,8 @@
 							"port": "3000",
 							"path": [
 								"folder",
-								"1"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null
-								}
+								"eliminarCarpeta",
+								"4"
 							]
 						}
 					},
@@ -483,13 +545,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU5Njg4NDY5LCJleHAiOjE2NjIyODA0Njl9.OHX0A407D_Vy27c-MmpIc6LbJ6ZBebsvmRHFwkijqkk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
 								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"nombreCarpeta\":\"nuevaCarpeta2\",\n\"publico\":true}",
+							"raw": "{ \"publico\":true}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -497,7 +559,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/folder/editarPermisos",
+							"raw": "http://localhost:3000/folder/editarPermisos/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -505,7 +567,47 @@
 							"port": "3000",
 							"path": [
 								"folder",
-								"editarPermisos"
+								"editarPermisos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarCarpeta",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"description": "us7",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nombreCarpeta\":\"   Una    Carpeta    rocio\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/folder/buscarCarpeta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"folder",
+								"buscarCarpeta"
 							]
 						}
 					},

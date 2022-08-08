@@ -3,10 +3,14 @@
 const { mostrarFicheros } = require('../../baseDatos/archivos');
 
 const listar = async (req, res, next) => {
+  //RECORDAR LISTAR TAMBIEN LOS DIRECTORIOS, NO SOLO LOS FICHEROS!!!!!!
   try {
-    const id = req.params;
+    //recojo id de parametro
+    const { id_carpeta } = req.params;
+    const idUsuario = req.idPropietario;
 
-    const archivos = await mostrarFicheros(id);
+    //llamo a la funcion que devuelve los datos de la base de datos
+    const archivos = await mostrarFicheros(id_carpeta, idUsuario);
 
     res.send({
       status: 'ok',
@@ -15,8 +19,6 @@ const listar = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  } finally {
-    // if (connection) connection.release();
   }
 };
 
