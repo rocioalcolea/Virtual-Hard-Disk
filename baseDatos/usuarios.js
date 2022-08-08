@@ -6,15 +6,16 @@ const { generateError, formatDateToDB } = require('../helpers');
 const getDB = require('./db');
 const fs = require('fs').promises;
 
+/**NOMBRE: mostrarUsuarioPorEmail
+ * PARÁMETROS: email
+ * FUNCION:mostrar usuario a través del email */
 const mostrarUsuarioPorEmail = async (email) => {
   // pido conneción al DB
   let connection;
-
   try {
     connection = await getDB();
 
-    // leer  la info del usuario
-
+    // recoger la info del usuario a traves del email
     const [result] = await connection.query(
       `
          SELECT id_usuario, name, email, password, active, rol, registrationDate
@@ -34,14 +35,16 @@ const mostrarUsuarioPorEmail = async (email) => {
   }
 };
 
+/**NOMBRE: mostrarUsuarioPorId
+ * PARÁMETROS: id
+ * FUNCION:mostrar usuario a través del id */
 const mostrarUsuarioPorId = async (id) => {
   // pido conneción al DB
   let connection;
   try {
     connection = await getDB();
 
-    // leer  la info del usuario
-
+    // recoger  la info del usuario a través del Id
     const [result] = await connection.query(
       `
          SELECT id_usuario, name, email, password, active, rol, registrationDate
@@ -59,19 +62,28 @@ const mostrarUsuarioPorId = async (id) => {
     if (connection) connection.release;
   }
 };
+
+/**NOMBRE: activarUsuario
+ * PARÁMETROS: registrationCode
+ * FUNCION:Activar usuario a través del codigo de registro */
 const activarUsuario = async (registrationCode) => {
   let connection;
   try {
     connection = await getDB();
+
+    //encontrar el id del usuario a través del codigo de registro
     const [result] = await connection.query(
       `
       SELECT id_usuario FROM usuarios WHERE registrationCode=?
     `,
       [registrationCode]
     );
+
+    //si no devuelve datos ese codigo de registro en la base de datos lanzo error
     if (result.length === 0) {
       throw generateError('Ningún código de validación encontrado', 404);
     }
+
     // activo el usuario y borro registrationCode
     await connection.query(
       `
@@ -87,13 +99,15 @@ const activarUsuario = async (registrationCode) => {
   }
 };
 
+/**NOMBRE: crearUsuario
+ * PARÁMETROS: nombre, email, contraseña y codigo de registro
+ * FUNCION:crear nuevo usuario */
 const crearUsuario = async (name, email, password, registrationCode) => {
   let connection;
-
   try {
     connection = await getDB();
-    //comprobar email no esta en la base de datos
 
+    //comprobar email no esta en la base de datos
     const [result] = await connection.query(
       `
     SELECT id_usuario FROM usuarios WHERE email=?
@@ -101,6 +115,7 @@ const crearUsuario = async (name, email, password, registrationCode) => {
       [email]
     );
 
+    //si se encuentra algun resultado con ese email lanzo error
     if (result.length > 0) {
       throw generateError(
         'Ya existe un usuario en la base de datos con ese email',
@@ -125,26 +140,27 @@ const crearUsuario = async (name, email, password, registrationCode) => {
         registrationCode,
       ]
     );
-    //creo la carpeta de usuario donde podrá guardar sus ficheros
-    console.log('llega aqui');
-    const nuevaCarpetaUsuario = path.join(
-      __dirname,
-      `..`,
-      `discoDuro`,
-      `${nuevoUsuario.insertId}`
-    );
+
     //creo su carpeta raiz en la base de datos
     await connection.query(
       ` INSERT INTO directorios (id_usuario, name,publico) VALUES (?,?,?)`,
       [nuevoUsuario.insertId, nuevoUsuario.insertId, false]
     );
 
+    //creo la carpeta de usuario, en el servidor,
+    const nuevaCarpetaUsuario = path.join(
+      __dirname,
+      `..`,
+      `discoDuro`,
+      `${nuevoUsuario.insertId}`
+    );
     try {
       await fs.mkdir(nuevaCarpetaUsuario);
     } catch (error) {
       throw generateError('no se puede crear la carpeta de usuario', 500);
     }
-    //devolver la id
+
+    //devolver la id del nuevo usuario creado
     return nuevoUsuario.insertId;
   } finally {
     if (connection) {

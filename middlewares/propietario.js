@@ -5,6 +5,7 @@ const propietario = (req, res, next) => {
   try {
     const { authorization } = req.headers;
 
+    //comprobamos que nos hay un header con la Authorization
     if (!authorization) {
       throw generateError('falta la cabecera de autorizacion');
     }
@@ -19,6 +20,7 @@ const propietario = (req, res, next) => {
 
     //metemos la informacion del token en la req para usarla en el controlador
     req.idPropietario = token.id;
+    req.rolPropietario = token.rol;
 
     //saltamos al controlador
     next();

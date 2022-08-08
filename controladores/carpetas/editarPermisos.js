@@ -5,19 +5,21 @@ const { modificarPermisos } = require('../../baseDatos/directorios');
 const editarPermisos = async (req, res, next) => {
   try {
     const idUsuario = req.idPropietario;
-    const { nombreCarpeta, publico } = req.body;
+    const { publico } = req.body;
+    const { idCarpeta } = req.params;
 
-    if (!nombreCarpeta || !publico) {
+    //comprueba que existe id carpeta y que existen los permisos
+    if (!idCarpeta || publico === undefined) {
       throw generateError(
-        'Debes introducir nombre de carpeta con longitud menor que 100',
+        'Debes introducir nombre de carpeta con longitud menor que 100 y un valor para los permisos',
         400
       );
     }
-    const id = await modificarPermisos(idUsuario, nombreCarpeta, publico);
+    const id = await modificarPermisos(idUsuario, idCarpeta, publico);
 
     res.send({
       status: 'ok',
-      message: 'Editar Permisos Carpeta',
+      message: 'Permisos de Carpeta Editados',
       data: [id],
     });
   } catch (error) {

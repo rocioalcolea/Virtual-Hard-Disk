@@ -2,8 +2,9 @@
 const { eliminarDirectorio } = require('./../../baseDatos/directorios');
 const eliminarCarpeta = async (req, res, next) => {
   try {
-    const { id_carpeta } = req.params;
+    const { idCarpeta } = req.params;
     const idUsuario = req.idPropietario;
+    console.log(idCarpeta, idUsuario);
 
     //llamar a eliminar archivo por cada archivo que haya en un directorio.
     //seleccionar todos los archivos pertenecientes a un directorio
@@ -11,17 +12,15 @@ const eliminarCarpeta = async (req, res, next) => {
     //con un for  ir llamando a eliminar archivo
     //eliminar carpeta
 
-    const eliminado = await eliminarDirectorio(idUsuario, id_carpeta);
-    console.log(eliminado);
+    const eliminado = await eliminarDirectorio(idUsuario, idCarpeta);
+
     res.send({
       status: 'ok',
       message: 'Eliminar Carpeta',
-      data: [],
+      data: [eliminado],
     });
   } catch (error) {
     next(error);
-  } finally {
-    // if (connection) connection.release();
   }
 };
 

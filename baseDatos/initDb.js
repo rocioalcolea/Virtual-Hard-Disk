@@ -50,6 +50,7 @@ async function main() {
     CREATE TABLE directorios(
         id_directorio INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR (100),
+        nameUnique VARCHAR(100),
         publico BOOLEAN DEFAULT false,
         id_usuario INT NOT NULL,
         FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)

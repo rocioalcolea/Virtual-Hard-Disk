@@ -9,7 +9,6 @@ const validarUsuario = async (req, res, next) => {
     res.send({
       status: 'ok',
       message: 'Usuario validado',
-      data: [],
     });
   } catch (error) {
     next(error);

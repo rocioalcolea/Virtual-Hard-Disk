@@ -1,28 +1,38 @@
 'use strict';
-const { generateError } = require('../../helpers');
-const { modificarNombreCarpeta } = require('../../baseDatos/directorios');
+const { comprobarName, generateError, nombreUnico } = require('../../helpers');
+const { modificarNombreDirectorio } = require('../../baseDatos/directorios');
 
 const editarNombreC = async (req, res, next) => {
   try {
     const idUsuario = req.idPropietario;
-    const { nombreCarpeta, nuevoNombreCarpeta } = req.body;
+    const { idCarpeta } = req.params;
+    const { nuevoNombre } = req.body;
 
-    if (!nombreCarpeta || !nuevoNombreCarpeta) {
+    console.log(idCarpeta);
+    //comprueba que existe id carpeta
+    if (!idCarpeta) {
       throw generateError(
-        'Debes introducir nombre de carpeta con longitud menor que 100',
+        'Debes introducir el id de la carpeta a modificar',
         400
       );
     }
-    const id = await modificarNombreCarpeta(
+
+    //comprueba que existen y tienen tamaño adecuado el nuevo nombre de carpeta
+    await comprobarName(nuevoNombre);
+    const nuevoNombreUnivoco = nombreUnico(nuevoNombre);
+
+    //llama a la función de la base de datos que modifica el nombre de la carpeta
+    const idModificado = await modificarNombreDirectorio(
       idUsuario,
-      nombreCarpeta,
-      nuevoNombreCarpeta
+      idCarpeta,
+      nuevoNombre,
+      nuevoNombreUnivoco
     );
 
     res.send({
       status: 'ok',
-      message: 'Editar Nombre Carpeta',
-      data: [id],
+      message: 'Nombre Carpeta Editado',
+      data: [idModificado],
     });
   } catch (error) {
     next(error);

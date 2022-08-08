@@ -29,20 +29,20 @@ const {
   editarNombreC,
   eliminarCarpeta,
   editarPermisos,
+  buscarCarpeta,
 } = require('./controladores/carpetas');
 const { propietario } = require('./middlewares/propietario');
 const { PORT } = process.env;
 
 //*****END POINTS USUARIOS  */
-app.get('/usuarios/:id', mostrarUsuario);
-// POST - /users - Crear un usuario pendiente de activar
+app.get('/usuarios/:idParametro', propietario, mostrarUsuario);
+// Crea un usuario  y le deja pendiente de activar
 app.post('/usuarios', nuevoUsuario);
-// GET - /users/validate/:registrationCode - Validará un usuario recien registrado
+// Valida un usuario recien registrado
 app.get('/usuarios/validar/:registrationCode', validarUsuario);
-// POST - /users/login - Hará el login de un usuario y devolverá el TOKEN
+// Loguea un usuario y devuelve el TOKEN
 app.post('/usuarios/login', loguearUsuario);
-// PUT - /users/:id/password - Editar la contraseña de un usuario
-// Token obligatorio y mismo usuario
+// Edita la contraseña de un usuario
 app.put('/usuarios/password');
 
 /**END POINTS ARCHIVOS */
@@ -51,14 +51,15 @@ app.get('/file/:id_archivo', propietario, descargarArchivo);
 app.put('/file/editarNombre/:id_archivo', propietario, editarNombreA);
 app.put('/file/permisos/', propietario, editarPermisosA);
 app.delete('/file/:id_archivo', propietario, eliminarArchivo);
-app.get('/folder/:id_carpeta', propietario, listar);
+app.get('/folder/listar/:id_carpeta', propietario, listar);
 app.post('/file', propietario, subirArchivo);
 
 /**END POINTS CARPETAS */
-app.post('/folder/:nombre_carpeta', propietario, nuevaCarpeta);
-app.put('/folder/editarNombre', propietario, editarNombreC);
-app.put('/folder/editarPermisos', propietario, editarPermisos);
-app.delete('/folder/:id_carpeta', propietario, eliminarCarpeta);
+app.post('/folder/crearCarpeta/', propietario, nuevaCarpeta);
+app.get('/folder/buscarCarpeta', propietario, buscarCarpeta);
+app.put('/folder/editarNombre/:idCarpeta', propietario, editarNombreC);
+app.put('/folder/editarPermisos/:idCarpeta', propietario, editarPermisos);
+app.delete('/folder/eliminarCarpeta/:idCarpeta', propietario, eliminarCarpeta);
 
 app.use((error, req, res, next) => {
   res

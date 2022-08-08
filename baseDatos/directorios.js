@@ -4,98 +4,143 @@ const { generateError } = require('../helpers');
 
 const getDB = require('./db');
 
-const crearCarpeta = async (idUsuario, nombreCarpeta, publico = false) => {
+/**NOMBRE: crearDirectorio
+ * PARÁMETROS: id de usuario, nombre de directorio y permisos.
+ * FUNCION:crear nuevo directorio*/
+const crearDirectorio = async (
+  idUsuario,
+  nombreUnico,
+  nombreDirectorio,
+  publico = false
+) => {
   let connection;
   try {
     connection = await getDB();
+    //Seleccionar los directorios pertenecientes al usuario
     const [directorio] = await connection.query(
-      `SELECT name FROM directorios where id_usuario=?
+      `SELECT nameUnique FROM directorios where id_usuario=?
     `,
       [idUsuario]
     );
 
-    if (directorio[0].name == nombreCarpeta) {
-      throw generateError('Ese nombre de carpeta ya existe', 400);
+    //compruebo que el nombre del nuevo directorio no aparece ya en la base de datos de ese usuario
+    for (const valor of directorio) {
+      if (valor.name === nombreUnico) {
+        throw generateError('Ese nombre de carpeta ya existe', 400);
+      }
     }
+
+    //añado una tupla con el nombre del directorio, el id del usuario al que pertenece, y los permisos del directorio
     const [result] = await connection.query(
-      ` INSERT INTO directorios (id_usuario, name,publico) VALUES (?,?,?)`,
-      [idUsuario, nombreCarpeta, publico]
+      ` INSERT INTO directorios (id_usuario, name,nameUnique,publico) VALUES (?,?,?,?)`,
+      [idUsuario, nombreDirectorio, nombreUnico, publico]
     );
+
+    //devuelvo el id del directorio creado
     return result.insertId;
   } finally {
     if (connection) connection.release();
   }
 };
 
-const modificarNombreCarpeta = async (
+/**NOMBRE: buscarDirectorio
+ * PARÁMETROS: id de usuario, rolUsuario, nombre de directorio.
+ * FUNCION:buscar un directorio por nombre*/
+const buscarDirectorio = async (idUsuario, nombreDirectorio) => {
+  let connection;
+  try {
+    connection = await getDB();
+
+    //busco el directorio perneceneciente a ese usuario y con a través de nombre unico
+    const [busquedaUsuario] = await connection.query(
+      `SELECT id_directorio,name FROM directorios WHERE nameUnique=? AND id_usuario=?`,
+      [nombreDirectorio, idUsuario]
+    );
+
+    //error si no se encuentra el directorio
+    if (busquedaUsuario[0] === undefined) {
+      throw generateError('No se ha encontrado la Carpeta con ese nombre', 400);
+    }
+
+    //devuelvo datos de busqueda si encuentra el direcotrio
+    return busquedaUsuario;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+/**NOMBRE: modificarNombreDirectorio
+ * PARÁMETROS: id de usuario, nombre de Directorio y nuevo nombre de directorio.
+ * FUNCION:modificar el nombre del directorio*/
+const modificarNombreDirectorio = async (
   idUsuario,
-  nombreCarpeta,
-  nuevoNombreCarpeta
+  idDirectorio,
+  nuevoNombre,
+  nuevoNombreUnico
 ) => {
   let connection;
   try {
     connection = await getDB();
-    const [directorio] = await connection.query(
-      `SELECT id_usuario, name FROM directorios where id_usuario=? AND name=?
-      `,
-      [idUsuario, nombreCarpeta]
-    );
-    console.log(directorio);
-    if (directorio[0] === 0) {
-      throw generateError('Esa carpeta no existe o no le pertenece', 400);
-    }
+
+    //actualizar el nuevo nombre del directorio y su nombre único
     const [result] = await connection.query(
-      ` UPDATE directorios SET  name=? WHERE name=?`,
-      [nuevoNombreCarpeta, nombreCarpeta]
+      ` UPDATE directorios SET  name=?, nameUnique=?  WHERE id_directorio=? AND id_Usuario=?`,
+      [nuevoNombre, nuevoNombreUnico, idDirectorio, idUsuario]
     );
-    return result;
+
+    if (result.affectedRows === 0) {
+      return 'no se ha encontrado esa carpeta';
+    }
+    return result.info;
   } finally {
     if (connection) connection.release();
   }
 };
 
-const modificarPermisos = async (idUsuario, nombreCarpeta, publico) => {
+/**NOMBRE: modificarPermisos del directorio
+ * PARÁMETROS: id de usuario, id de Directorio y nuevos permisos.
+ * FUNCION:modificar el nombre del directorio*/
+const modificarPermisos = async (idUsuario, idDirectorio, publico) => {
   let connection;
   try {
     connection = await getDB();
-    const [directorio] = await connection.query(
-      `SELECT id_usuario, name FROM directorios where id_usuario=? AND name=?
-      `,
-      [idUsuario, nombreCarpeta]
-    );
-    console.log(directorio);
-    if (directorio[0] === 0) {
-      throw generateError('Esa carpeta no existe o no le pertenece', 400);
-    }
+
     const [result] = await connection.query(
-      ` UPDATE directorios SET  publico=? WHERE name=?`,
-      [publico, nombreCarpeta]
+      ` UPDATE directorios SET  publico=? WHERE id_directorio=? AND id_usuario=?`,
+      [publico, idDirectorio, idUsuario]
     );
-    return result;
+    return result.info;
   } finally {
     if (connection) connection.release();
   }
 };
 
+/**NOMBRE: modificarPermisos del directorio
+ * PARÁMETROS: id de usuario, id de Directorio y nuevos permisos.
+ * FUNCION:modificar el nombre del directorio*/
 const eliminarDirectorio = async (idUsuario, idDirectorio) => {
   let connection;
   try {
     connection = await getDB();
+
+    //FALTAAAAAA.....!!!!!!  CODIGO PARA ELIMINAR TODOS LOS ARCHIVOS QUE CONTIENE ESTE DIRECTORIO
     const [directorio] = await connection.query(
       `DELETE FROM directorios where id_usuario=? AND id_directorio=?
       `,
       [idUsuario, idDirectorio]
     );
-
-    console.log(directorio);
-    return directorio;
+    if (directorio.affectedRows === 0) {
+      throw generateError('No se ha podido borrar la carpeta', 400);
+    }
+    return directorio.affectedRows;
   } finally {
     if (connection) connection.release();
   }
 };
 module.exports = {
-  crearCarpeta,
-  modificarNombreCarpeta,
+  crearDirectorio,
+  buscarDirectorio,
+  modificarNombreDirectorio,
   modificarPermisos,
   eliminarDirectorio,
 };

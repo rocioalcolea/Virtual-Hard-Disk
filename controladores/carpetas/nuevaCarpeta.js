@@ -1,22 +1,27 @@
 'use strict';
 
-const { generateError } = require('../../helpers');
-const { crearCarpeta } = require('../../baseDatos/directorios');
+const { comprobarName, nombreUnico } = require('../../helpers');
+const { crearDirectorio } = require('../../baseDatos/directorios');
 
 const nuevaCarpeta = async (req, res, next) => {
   try {
+    //recogemos idUsuario del middleware Propietario
     const idUsuario = req.idPropietario;
 
+    //recogemos el nombre de la carpeta del json
     const { nombreCarpeta } = req.body;
 
-    if (!nombreCarpeta) {
-      throw generateError(
-        'Debes introducir nombre de carpeta con longitud menor que 100',
-        400
-      );
-    }
+    //Comprobamos que existe nombreCarpeta y cumple con los requisitos
+    await comprobarName(nombreCarpeta);
 
-    const id = await crearCarpeta(idUsuario, nombreCarpeta);
+    const nombreUnivoco = nombreUnico(nombreCarpeta);
+
+    //llamo a la función que crea la carpeta en la base de datos
+    const id = await crearDirectorio(
+      idUsuario,
+      nombreUnivoco,
+      nombreCarpeta.trim()
+    );
 
     res.send({
       status: 'ok',

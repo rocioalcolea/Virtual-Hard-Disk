@@ -1,4 +1,5 @@
 'use strict';
+/**PASARELA CON FUNCIONES RELACIONADAS CON USUARIO */
 
 const mostrarUsuario = require('./mostrarUsuario');
 const loguearUsuario = require('./loguearUsuario');

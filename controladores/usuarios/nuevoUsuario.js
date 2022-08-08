@@ -1,8 +1,13 @@
 'use strict';
 require('dotenv').config();
 const { crearUsuario } = require('../../baseDatos/usuarios');
-const comprobarCampos = require('./comprobarCampos');
-const { generarCadenaAleatoria, sendEmail } = require('../../helpers');
+const {
+  generarCadenaAleatoria,
+  sendEmail,
+  comprobarEmail,
+  comprobarPassword,
+  comprobarName,
+} = require('../../helpers');
 
 const nuevoUsuario = async (req, res, next) => {
   try {
@@ -14,10 +19,13 @@ const nuevoUsuario = async (req, res, next) => {
    Acabas de crear una cuenta en DISCO DURO VIRTUAL.
    Pulsa en este enlace para activar el usuario: ${process.env.PUBLIC_HOST}/usuarios/validar/${registrationCode}
  `;
-
+    //recoje y comprueba los datos que le pasamos en el json (nombre, email y contraseña)
     const { name, email, password } = req.body;
-    const comprueba = await comprobarCampos(email, password);
-    if (comprueba && name) {
+    const compruebaEmail = await comprobarEmail(email);
+    const compruebaPassword = await comprobarPassword(password);
+    const compruebaName = await comprobarName(name);
+
+    if (compruebaEmail && compruebaPassword && compruebaName) {
       const id = await crearUsuario(name, email, password, registrationCode);
 
       // eviamos el correo de validación del usuario creado
