@@ -22,13 +22,14 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
 								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"nombreCarpeta\":\"nuevaCarpeta\",\n\"nombreArchivo\":\"photo.jpeg\",\n\"nuevoNombreArchivo\":\"fotooooo.jpg\"}",
+							"raw": "{\"nuevoNombreArchivo\":\"fotooooo.jpg\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -59,13 +60,14 @@
 							{
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -91,18 +93,19 @@
 							{
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
+								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"nombreCarpeta\":\"nuevaCarpeta\",\n\"nombreFichero\":\"photo.jpeg\"}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -110,7 +113,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/file/2",
+							"raw": "http://localhost:3000/file/eliminar/6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -118,7 +121,8 @@
 							"port": "3000",
 							"path": [
 								"file",
-								"2"
+								"eliminar",
+								"6"
 							]
 						}
 					},
@@ -132,17 +136,18 @@
 							{
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
+								"type": "default"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/folder/listar/4",
+							"raw": "http://localhost:3000/folder/listar/6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -151,7 +156,7 @@
 							"path": [
 								"folder",
 								"listar",
-								"4"
+								"6"
 							]
 						}
 					},
@@ -165,12 +170,13 @@
 							{
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
+								"description": "us1",
 								"type": "default"
 							},
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU5NzY4OTk4LCJleHAiOjE2NjIzNjA5OTh9.A13wXcfmujnZQssBHAj5bsiHw73H0BrOr0orQ-S3qtA",
-								"description": "us5",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
 								"type": "default",
 								"disabled": true
 							},
@@ -187,12 +193,13 @@
 								{
 									"key": "nombreCarpeta",
 									"value": "nuevaCarpeta",
-									"type": "default"
+									"type": "default",
+									"disabled": true
 								},
 								{
 									"key": "fichero",
 									"type": "file",
-									"src": "photo.jpeg"
+									"src": "Mi disco duro online.pdf"
 								},
 								{
 									"key": "yoquese",
@@ -208,14 +215,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/file",
+							"raw": "http://localhost:3000/file/subirArchivo/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"file"
+								"file",
+								"subirArchivo",
+								"2"
 							]
 						}
 					},
@@ -229,19 +238,19 @@
 							{
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "",
-								"description": "us5",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
+								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"nombreCarpeta\":\"nuevaCarpeta\",\n\"nombreArchivo\":\"photo.jpeg\",\n\"publico\":false}",
+							"raw": "{\"publico\":false}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -249,7 +258,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/file/permisos/",
+							"raw": "http://127.0.0.1:3000/file/permisos/6/7",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -261,7 +270,8 @@
 							"path": [
 								"file",
 								"permisos",
-								""
+								"6",
+								"7"
 							]
 						}
 					},
@@ -411,14 +421,14 @@
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
 								"description": "us1",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "",
-								"description": "us5",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
+								"type": "default"
 							},
 							{
 								"key": "Authorization",
@@ -444,7 +454,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"nombreCarpeta\":\"   Una Carpeta   Rocio \"}",
+							"raw": "{\"nombreCarpeta\":\"Tres carpeta\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -475,14 +485,14 @@
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
 								"description": "us1",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
-								"value": "",
-								"description": "us7",
-								"type": "default",
-								"disabled": true
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -519,11 +529,18 @@
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
 								"description": "us1",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
 								"type": "default"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/folder/eliminarCarpeta/4",
+							"raw": "http://localhost:3000/folder/eliminarCarpeta/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -532,7 +549,7 @@
 							"path": [
 								"folder",
 								"eliminarCarpeta",
-								"4"
+								"3"
 							]
 						}
 					},
@@ -547,6 +564,13 @@
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "3",
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -586,6 +610,12 @@
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTU2NzM1LCJleHAiOjE2NjI1NDg3MzV9.eX7NZeU7yMZNikgXW77dGJiY-UZb7C0IjmBqL_2Yplk",
 								"description": "us7",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sIjoibm9ybWFsIiwiaWF0IjoxNjU5OTc3NDgxLCJleHAiOjE2NjI1Njk0ODF9.OLxVEdFFMlDKKJgOZgRAX7zBxL4cKSVu702TDt6zFww",
+								"description": "us3",
 								"type": "default"
 							}
 						],
