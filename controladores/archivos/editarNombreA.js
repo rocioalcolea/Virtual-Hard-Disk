@@ -1,21 +1,26 @@
 'use strict';
-const { generateError } = require('../../helpers');
+const { generateError, comprobarName } = require('../../helpers');
 const { modificarNombreArchivo } = require('../../baseDatos/archivos');
 const editarNombreA = async (req, res, next) => {
   try {
+    //recojo valores
     const idUsuario = req.idPropietario;
-    const { nombreCarpeta, nombreArchivo, nuevoNombreArchivo } = req.body;
+    const { id_archivo } = req.params;
+    const { nuevoNombreArchivo } = req.body;
 
-    if (!nombreCarpeta || !nombreArchivo || !nuevoNombreArchivo) {
+    //compruebo que se envia los datos necesarios
+    await comprobarName(nuevoNombreArchivo);
+    if (!id_archivo) {
       throw generateError(
         'Debes introducir nombre de carpeta con longitud menor que 100',
         400
       );
     }
+
+    //llamo a funcion que modifica el nombre del archivo en la base de datos
     const id = await modificarNombreArchivo(
       idUsuario,
-      nombreCarpeta,
-      nombreArchivo,
+      id_archivo,
       nuevoNombreArchivo
     );
 

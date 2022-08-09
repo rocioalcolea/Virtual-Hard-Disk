@@ -28,7 +28,7 @@ const {
   nuevaCarpeta,
   editarNombreC,
   eliminarCarpeta,
-  editarPermisos,
+  editarPermisosD,
   buscarCarpeta,
 } = require('./controladores/carpetas');
 const { propietario } = require('./middlewares/propietario');
@@ -49,8 +49,8 @@ app.put('/usuarios/password');
 
 app.get('/file/:id_archivo', propietario, descargarArchivo);
 app.put('/file/editarNombre/:id_archivo', propietario, editarNombreA);
-app.put('/file/permisos/id_archivo', propietario, editarPermisosA);
-app.delete('/file/:id_archivo', propietario, eliminarArchivo);
+app.put('/file/permisos/:id_archivo', propietario, editarPermisosA);
+app.delete('/file/eliminar/:id_archivo', propietario, eliminarArchivo);
 app.post('/file/subirArchivo/:id_carpeta', propietario, subirArchivo);
 app.get('/folder/listar/:id_carpeta', propietario, listar);
 
@@ -58,7 +58,7 @@ app.get('/folder/listar/:id_carpeta', propietario, listar);
 app.post('/folder/crearCarpeta/', propietario, nuevaCarpeta);
 app.get('/folder/buscarCarpeta', propietario, buscarCarpeta);
 app.put('/folder/editarNombre/:idCarpeta', propietario, editarNombreC);
-app.put('/folder/editarPermisos/:idCarpeta', propietario, editarPermisos);
+app.put('/folder/editarPermisos/:idCarpeta', propietario, editarPermisosD);
 app.delete('/folder/eliminarCarpeta/:idCarpeta', propietario, eliminarCarpeta);
 
 app.use((error, req, res, next) => {

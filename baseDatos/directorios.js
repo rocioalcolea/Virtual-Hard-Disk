@@ -1,7 +1,7 @@
 'use strict';
 
 const { generateError } = require('../helpers');
-
+const { modificarPermisos } = require('../baseDatos/archivos');
 const getDB = require('./db');
 
 /**NOMBRE: crearDirectorio
@@ -100,15 +100,25 @@ const modificarNombreDirectorio = async (
 /**NOMBRE: modificarPermisos del directorio
  * PARÁMETROS: id de usuario, id de Directorio y nuevos permisos.
  * FUNCION:modificar el nombre del directorio*/
-const modificarPermisos = async (idUsuario, idDirectorio, publico) => {
+const modificarPermisosD = async (idUsuario, idDirectorio, publico) => {
   let connection;
   try {
     connection = await getDB();
-
+    //actualiza el valor de los permisos de la carpeta indicada del usuario propietario
     const [result] = await connection.query(
       ` UPDATE directorios SET  publico=? WHERE id_directorio=? AND id_usuario=?`,
       [publico, idDirectorio, idUsuario]
     );
+
+    //actualiza el valor de los permisos de los archivos pertenecientes a la carpeta dada
+    const [archivos] = await connection.query(
+      `SELECT id_archivo FROM archivos WHERE id_directorio=?`,
+      [idDirectorio]
+    );
+    for (const archivo of archivos) {
+      await modificarPermisos(idUsuario, archivo.id_archivo, publico);
+    }
+
     return result.info;
   } finally {
     if (connection) connection.release();
@@ -141,6 +151,6 @@ module.exports = {
   crearDirectorio,
   buscarDirectorio,
   modificarNombreDirectorio,
-  modificarPermisos,
+  modificarPermisosD,
   eliminarDirectorio,
 };

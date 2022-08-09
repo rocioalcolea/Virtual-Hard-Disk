@@ -1,4 +1,7 @@
 'use strict';
+const path = require('path');
+const fs = require('fs').promises;
+const { mostrarFicheros, borrarFichero } = require('../../baseDatos/archivos');
 const { eliminarDirectorio } = require('./../../baseDatos/directorios');
 const eliminarCarpeta = async (req, res, next) => {
   try {
@@ -6,12 +9,29 @@ const eliminarCarpeta = async (req, res, next) => {
     const idUsuario = req.idPropietario;
     console.log(idCarpeta, idUsuario);
 
-    //llamar a eliminar archivo por cada archivo que haya en un directorio.
-    //seleccionar todos los archivos pertenecientes a un directorio
-    //devolver el array
-    //con un for  ir llamando a eliminar archivo
-    //eliminar carpeta
+    const borrar = await mostrarFicheros(idCarpeta, idUsuario);
+    const archivosBorrar = [...borrar[1]];
 
+    if (archivosBorrar.length > 0 || archivosBorrar != undefined) {
+      //recorro el array de ficheros pertenecientes a la carpeta a borrar
+      for (const archivo of archivosBorrar) {
+        console.log('holis', archivo.id_archivo);
+        //borro el fichero en la base de datos
+        let ficheroBorrado = borrarFichero(idUsuario, archivo.id_archivo);
+
+        //borro el fichero del servidor
+        let path_file = await path.join(
+          __dirname,
+          `..`,
+          `..`,
+          `discoDuro`,
+          `${idUsuario}`,
+          await ficheroBorrado
+        );
+        await fs.unlink(path_file);
+      }
+    }
+    //elimino de la base de datos la carpeta a eliminar
     const eliminado = await eliminarDirectorio(idUsuario, idCarpeta);
 
     res.send({
