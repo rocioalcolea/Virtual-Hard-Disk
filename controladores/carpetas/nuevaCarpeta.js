@@ -25,7 +25,7 @@ const nuevaCarpeta = async (req, res, next) => {
 
     res.send({
       status: 'ok',
-      message: `Creada Carpeta con id ${id} `,
+      id: id,
     });
   } catch (error) {
     next(error);

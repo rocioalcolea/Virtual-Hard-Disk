@@ -202,10 +202,30 @@ const modificarNombreArchivo = async (
   }
 };
 
+/**NOMBRE: buscarArchivoId
+ * PARÁMETROS:id archivo
+ * FUNCION: buscar un fichero a través de su id*/
+const buscarArchivoId = async (idArchivo) => {
+  let connection;
+  try {
+    connection = await getDB();
+    //me selecciona el nombre real, el encriptado y el id del propitario.
+    const [result] = await connection.query(
+      ` SELECT name_real, name_encriptado,publico,id_directorio,id_usuario FROM archivos WHERE  id_archivo=?`,
+      [idArchivo]
+    );
+    console.log(result);
+    return result;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
 module.exports = {
   subirArchivo,
   mostrarFicheros,
   borrarFichero,
   modificarPermisos,
   modificarNombreArchivo,
+  buscarArchivoId,
 };

@@ -7,7 +7,6 @@ const eliminarCarpeta = async (req, res, next) => {
   try {
     const { idCarpeta } = req.params;
     const idUsuario = req.idPropietario;
-    console.log(idCarpeta, idUsuario);
 
     const borrar = await mostrarFicheros(idCarpeta, idUsuario);
     const archivosBorrar = [...borrar[1]];
@@ -15,7 +14,6 @@ const eliminarCarpeta = async (req, res, next) => {
     if (archivosBorrar.length > 0 || archivosBorrar != undefined) {
       //recorro el array de ficheros pertenecientes a la carpeta a borrar
       for (const archivo of archivosBorrar) {
-        console.log('holis', archivo.id_archivo);
         //borro el fichero en la base de datos
         let ficheroBorrado = borrarFichero(idUsuario, archivo.id_archivo);
 
