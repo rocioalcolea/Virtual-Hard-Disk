@@ -38,7 +38,7 @@ const nuevoUsuario = async (req, res, next) => {
       res.send({
         status: 'ok',
         message: 'Usuario creado, pendiente de validar',
-        data: id,
+        id: id,
       });
     } else {
       res.send({

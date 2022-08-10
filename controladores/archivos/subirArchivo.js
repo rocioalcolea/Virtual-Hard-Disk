@@ -46,7 +46,7 @@ const subirFichero = async (req, res, next) => {
     res.send({
       status: 'ok',
       message: 'Subir Archivo',
-      data: id,
+      id: id,
     });
   } catch (error) {
     next(error);
