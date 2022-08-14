@@ -111,17 +111,10 @@ const mostrarFicheros = async (idDirectorio, idUsuario) => {
       return [];
     }
 
-    //mostrar los ficheros publicos
-    /*   const [publicos] = await connection.query(
-      `SELECT id_archivo, name_real FROM archivos WHERE publico=? AND id_usuario<>?`,
-      [1, idUsuario]
-    ); */
-
     //creo result con todos los directorios y archivos encontrados en esa carpeta
     const result = [];
     result[0] = [...directorio];
     result[1] = [...archivos];
-    // result[2] = [...publicos];
 
     return result;
   } finally {
@@ -175,16 +168,27 @@ const modificarPermisos = async (idUsuario, idArchivo, publico) => {
   let connection;
   try {
     connection = await getDB();
+    const [archivo] = await connection.query(
+      ` SELECT name_real FROM archivos WHERE id_archivo=? AND id_usuario=?`,
+      [idArchivo, idUsuario]
+    );
+
+    if (archivo[0] === undefined) {
+      throw generateError(
+        'No se ha encontrado el archivo o no le pertenece',
+        400
+      );
+    }
 
     const [result] = await connection.query(
       ` UPDATE archivos SET  publico=? WHERE id_archivo=? AND id_usuario=?`,
       [publico, idArchivo, idUsuario]
     );
-    console.log('eliminar archivo', idArchivo, idUsuario, publico);
-    if (result === undefined) {
-      throw generateError('No se han actualizado los permisos', 400);
+
+    if (result.affectedRows === 0) {
+      throw generateError('No se ha podido modificar el fichero', 400);
     }
-    return result;
+    return 'los permisos del fichero se ha modificado';
   } finally {
     if (connection) connection.release();
   }
@@ -201,12 +205,34 @@ const modificarNombreArchivo = async (
   let connection;
   try {
     connection = await getDB();
+    const [archivo] = await connection.query(
+      ` SELECT name_real FROM archivos WHERE id_archivo=? AND id_usuario=?`,
+      [idArchivo, idUsuario]
+    );
+
+    if (archivo[0] === undefined) {
+      throw generateError(
+        'No existe el archivo a modificar o no le pertenece',
+        400
+      );
+    }
+
+    //recojo el archivo, separo la extensión y se la añado al nuevo nombre
+    //para que pueda cambiar el nombre pero no la extensión del fichero
+    const nombreArchivo = archivo[0].name_real.split('.');
+    const extension = nombreArchivo[nombreArchivo.length - 1];
+    nuevoNombreArchivo = nuevoNombreArchivo + '.' + extension;
+
     //actualiza el nombre real al nuevo nombre introducido
     const [result] = await connection.query(
       ` UPDATE archivos SET  name_real=? WHERE id_archivo=? AND id_usuario=?`,
       [nuevoNombreArchivo, idArchivo, idUsuario]
     );
-    return result.info;
+
+    if (result.affectedRows === 0) {
+      throw generateError('No se ha podido modificar el fichero ', 400);
+    }
+    return 'el nombre de fichero se ha modificado';
   } finally {
     if (connection) connection.release();
   }

@@ -26,8 +26,7 @@ const editarNombreA = async (req, res, next) => {
 
     res.send({
       status: 'ok',
-      message: 'Editar Nombre Archivo',
-      data: [id],
+      message: id,
     });
   } catch (error) {
     next(error);
