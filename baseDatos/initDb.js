@@ -37,7 +37,6 @@ async function main() {
         email VARCHAR (100) UNIQUE NOT NULL,
         password VARCHAR(512) NOT NULL,
         active BOOLEAN DEFAULT false,
-        rol ENUM("admin","normal") DEFAULT "normal" NOT NULL,
         registrationCode VARCHAR (100),
         lastAuthUpdate DATETIME,
         registrationDate DATETIME,
@@ -70,20 +69,6 @@ async function main() {
         FOREIGN KEY (id_directorio) REFERENCES directorios(id_directorio)
         );
     `);
-
-    console.log('Creo usuario admin...');
-    await connection.query(`
-     INSERT INTO usuarios(name, email, password, active, rol, registrationDate)
-     VALUES (
-      "Rocio",
-      "rociocollado@email.com",
-      SHA2("${process.env.ADMIN_PASSWORD}", 512),
-      true,
-      "admin",
-      "${formatDateToDB(new Date())}"
-     )
-     `);
-    console.log('Creo usuario de prueba...');
   } catch (error) {
     console.error('ERROR:', error.message);
   } finally {

@@ -11,9 +11,13 @@ const subirFichero = async (req, res, next) => {
     //recojo los datos
     const idUsuario = req.idPropietario;
     const { id_carpeta } = req.params;
-    const { fichero } = req.files;
 
     //compruebo que se ha adjuntado archivo
+    if (!req.files) {
+      throw generateError('Debes adjuntar un fichero', 400);
+    }
+    const { fichero } = req.files;
+
     if (!fichero) {
       throw generateError('El fichero no existe', 400);
     }

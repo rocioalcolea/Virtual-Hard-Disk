@@ -3,8 +3,15 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const { mostrarUsuarioPorEmail } = require('../../baseDatos/usuarios');
-const { comprobarEmail, comprobarPassword } = require('./../../helpers');
+const {
+  mostrarUsuarioPorEmail,
+  isActivated,
+} = require('../../baseDatos/usuarios');
+const {
+  comprobarEmail,
+  comprobarPassword,
+  generateError,
+} = require('./../../helpers');
 
 const loguearUsuario = async (req, res, next) => {
   try {
@@ -18,9 +25,16 @@ const loguearUsuario = async (req, res, next) => {
 
       //compruebo que la contraseña es válida
       const validPassword = await bcrypt.compare(password, usuario[0].password);
+
+      if (!(await isActivated(usuario[0].id_usuario))) {
+        throw generateError(
+          'El usuario no está validado, entra en tu correo para validar',
+          400
+        );
+      }
       if (validPassword) {
         //creo el payload del token
-        const payload = { id: usuario[0].id_usuario, rol: usuario[0].rol };
+        const payload = { id: usuario[0].id_usuario };
 
         //firmo el webtoken
         const token = jwt.sign(payload, process.env.SECRET, {

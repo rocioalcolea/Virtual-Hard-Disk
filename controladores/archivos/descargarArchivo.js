@@ -2,6 +2,7 @@
 
 const path = require('path');
 const { buscarArchivoId } = require('../../baseDatos/archivos');
+const { generateError } = require('../../helpers');
 
 const descargarArchivo = async (req, res, next) => {
   try {
@@ -17,9 +18,15 @@ const descargarArchivo = async (req, res, next) => {
       `${descargar[0].name_encriptado}`
     );
 
-    //si es el propietario o si era un fichero público que lo descargue con su nombre 'real'
-    if (idPropietario == descargar[0].id_usuario || descargar[0].publico)
-      res.download(file, `${descargar[0].name_real}`);
+    //si no es el propietario o si no era un fichero público que lance error
+    if (
+      idPropietario !== descargar[0].id_usuario &&
+      descargar[0].publico === 0
+    ) {
+      throw generateError('El archivo no le pertenece y no es público', 400);
+    }
+    //descargar el fichero
+    res.download(file, `${descargar[0].name_real}`);
   } catch (error) {
     next(error);
   }

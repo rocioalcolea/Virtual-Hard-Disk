@@ -24,7 +24,7 @@ const comprobarPassword = async (password) => {
   const validation = schemaPass.validate(password);
   if (validation.error) {
     throw generateError(
-      'Debes introducir una password válida de longitud menor que 20 y mayor que 6',
+      'Debes introducir una password válida de longitud menor  o igual que 20 y mayor o igual que 6',
       400
     );
   }

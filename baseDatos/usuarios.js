@@ -18,7 +18,7 @@ const mostrarUsuarioPorEmail = async (email) => {
     // recoger la info del usuario a traves del email
     const [result] = await connection.query(
       `
-         SELECT id_usuario, name, email, password, active, rol, registrationDate
+         SELECT id_usuario, name, email, password, active,  registrationDate
          FROM usuarios
          WHERE email=?
          `,
@@ -47,7 +47,7 @@ const mostrarUsuarioPorId = async (id) => {
     // recoger  la info del usuario a través del Id
     const [result] = await connection.query(
       `
-         SELECT id_usuario, name, email, password, active, rol, registrationDate
+         SELECT id_usuario, name, email, password, active,  registrationDate
          FROM usuarios
          WHERE id_usuario=?
          `,
@@ -58,6 +58,32 @@ const mostrarUsuarioPorId = async (id) => {
       throw generateError('no hay ningun usuario con esa id', 404);
     }
     return result;
+  } finally {
+    if (connection) connection.release;
+  }
+};
+
+/**NOMBRE: activarUsuario
+ * PARÁMETROS: registrationCode
+ * FUNCION:Activar usuario a través del codigo de registro */
+const isActivated = async (idUsuario) => {
+  let connection;
+  try {
+    connection = await getDB();
+
+    //encontrar el id del usuario a través del codigo de registro
+    const [result] = await connection.query(
+      `
+      SELECT active FROM usuarios WHERE id_usuario=?
+    `,
+      [idUsuario]
+    );
+    //si no devuelve datos ese codigo de registro en la base de datos lanzo error
+    if (result === undefined) {
+      throw generateError('No existe el usuario', 404);
+    }
+
+    return result[0].active;
   } finally {
     if (connection) connection.release;
   }
@@ -171,6 +197,7 @@ const crearUsuario = async (name, email, password, registrationCode) => {
 
 module.exports = {
   crearUsuario,
+  isActivated,
   mostrarUsuarioPorId,
   mostrarUsuarioPorEmail,
   activarUsuario,

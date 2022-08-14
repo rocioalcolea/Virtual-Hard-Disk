@@ -20,7 +20,6 @@ const propietario = (req, res, next) => {
 
     //metemos la informacion del token en la req para usarla en el controlador
     req.idPropietario = token.id;
-    req.rolPropietario = token.rol;
 
     //saltamos al controlador
     next();

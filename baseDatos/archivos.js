@@ -38,7 +38,6 @@ const subirArchivo = async (
   try {
     connection = await getDB();
     //busco un archivo con ese nombre, en ese directorio y que pertenezca a ese usuario
-
     const [directorio] = await connection.query(
       `SELECT id_archivo FROM archivos  WHERE id_usuario=? AND name_real=? AND id_directorio=?
         `,
@@ -50,6 +49,16 @@ const subirArchivo = async (
       throw generateError('Ese nombre de fichero ya existe en la carpeta', 400);
     }
 
+    //busco el dueño del directorio para comprobar que el fichero solo sube a las carpetas de ese usuario
+    const [usuario] = await connection.query(
+      `SELECT id_usuario FROM directorios  WHERE id_directorio=?
+        `,
+      [idDirectorio]
+    );
+
+    if (idUsuario !== usuario[0].id_usuario) {
+      throw generateError('La carpeta no pertenece al usuario actual', 400);
+    }
     //añado el nombre de fichero a la base de datos con el resto de los campos.
     const [archivo] = await connection.query(
       ` INSERT INTO archivos (id_usuario, id_directorio,name_real, name_encriptado,publico) VALUES (?,?,?,?,?)`,
@@ -89,7 +98,7 @@ const mostrarFicheros = async (idDirectorio, idUsuario) => {
     const idDir = await buscarNombreRaizbyId(idDirectorio);
     console.log(idDir[0].name, idUsuario);
     //si el directorio es la raiz, que muestre tambien los directorios dependientes
-    if (idDir[0].name == idUsuario.toString()) {
+    if (idDir[0].name === idUsuario.toString()) {
       [directorio] = await connection.query(
         `SELECT id_directorio, name FROM directorios  WHERE name<>? AND id_usuario=?
         `,
@@ -99,20 +108,20 @@ const mostrarFicheros = async (idDirectorio, idUsuario) => {
 
     //si no hay archivos ni directorios en ese directorio que lance error
     if (archivos[0] === undefined && directorio[0] === undefined) {
-      throw generateError('No hay archivos ni carpetas que mostrar', 400);
+      return [];
     }
 
     //mostrar los ficheros publicos
-    const [publicos] = await connection.query(
+    /*   const [publicos] = await connection.query(
       `SELECT id_archivo, name_real FROM archivos WHERE publico=? AND id_usuario<>?`,
       [1, idUsuario]
-    );
+    ); */
 
     //creo result con todos los directorios y archivos encontrados en esa carpeta
     const result = [];
     result[0] = [...directorio];
     result[1] = [...archivos];
-    result[2] = [...publicos];
+    // result[2] = [...publicos];
 
     return result;
   } finally {
@@ -135,7 +144,8 @@ const borrarFichero = async (idUsuario, idArchivo) => {
       `,
       [idUsuario, idArchivo]
     );
-    if (archivo === undefined) {
+    console.log(archivo);
+    if (archivo[0] === undefined) {
       throw generateError('No existe el fichero que se desea eliminar', 400);
     }
     //borro el fichero de la base de datos
@@ -214,7 +224,7 @@ const buscarArchivoId = async (idArchivo) => {
       ` SELECT name_real, name_encriptado,publico,id_directorio,id_usuario FROM archivos WHERE  id_archivo=?`,
       [idArchivo]
     );
-    console.log(result);
+
     return result;
   } finally {
     if (connection) connection.release();
