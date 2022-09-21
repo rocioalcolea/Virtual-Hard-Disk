@@ -1,6 +1,7 @@
 const { generateError } = require('../helpers');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+
 const propietario = (req, res, next) => {
   try {
     const { authorization } = req.headers;

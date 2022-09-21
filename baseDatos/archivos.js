@@ -89,14 +89,14 @@ const mostrarFicheros = async (idDirectorio, idUsuario) => {
 
     //busco los archivos pertenecientes a esa carpeta
     const [archivos] = await connection.query(
-      `SELECT id_archivo, name_real FROM archivos  WHERE id_directorio=? AND id_usuario=?
+      `SELECT id_archivo, name_real, id_directorio FROM archivos  WHERE id_directorio=? AND id_usuario=?
       `,
       [idDirectorio, idUsuario]
     );
 
     //busco nobre raiz del directorio pasado por parametro
     const idDir = await buscarNombreRaizbyId(idDirectorio);
-    console.log(idDir[0].name, idUsuario);
+
     //si el directorio es la raiz, que muestre tambien los directorios dependientes
     if (idDir[0].name === idUsuario.toString()) {
       [directorio] = await connection.query(

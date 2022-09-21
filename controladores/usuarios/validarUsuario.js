@@ -1,7 +1,7 @@
 'use strict';
 const { activarUsuario } = require('../../baseDatos/usuarios');
 const validarUsuario = async (req, res, next) => {
-  const { registrationCode } = req.params;
+  const { registrationCode } = req.body;
 
   try {
     await activarUsuario(registrationCode);

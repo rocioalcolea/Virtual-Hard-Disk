@@ -17,7 +17,7 @@ const nuevoUsuario = async (req, res, next) => {
     //email con enlace de activaciones
     const mail = `
    Acabas de crear una cuenta en DISCO DURO VIRTUAL.
-   Pulsa en este enlace para activar el usuario: <a href="http://${process.env.PUBLIC_HOST}:${process.env.PORT}/usuarios/validar/${registrationCode}"> Activar </a>
+   Pulsa en este enlace para activar el usuario: <a href="http://${process.env.PUBLIC_HOST}:${process.env.PORT_FRONT}/usuarios/validar/${registrationCode}"> Activar </a>
  `;
     //recoje y comprueba los datos que le pasamos en el json (nombre, email y contraseña)
     const { name, email, password } = req.body;

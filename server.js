@@ -3,7 +3,8 @@ const fileUpload = require('express-fileupload');
 const express = require('express');
 
 const app = express();
-
+const cors = require('cors');
+app.use(cors());
 app.use(fileUpload());
 app.use(express.json());
 
@@ -35,15 +36,13 @@ const { propietario } = require('./middlewares/propietario');
 const { PORT } = process.env;
 
 //*****END POINTS USUARIOS  */
-app.get('/usuarios/:idParametro', propietario, mostrarUsuario);
+app.get('/usuarios/', propietario, mostrarUsuario);
 // Crea un usuario  y le deja pendiente de activar
 app.post('/usuarios', nuevoUsuario);
 // Valida un usuario recien registrado
-app.get('/usuarios/validar/:registrationCode', validarUsuario);
+app.patch('/usuarios/validar', validarUsuario);
 // Loguea un usuario y devuelve el TOKEN
 app.post('/usuarios/login', loguearUsuario);
-// Edita la contraseña de un usuario
-app.put('/usuarios/password');
 
 /**END POINTS ARCHIVOS */
 

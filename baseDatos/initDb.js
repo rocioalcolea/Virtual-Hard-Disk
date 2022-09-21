@@ -3,10 +3,9 @@
 // crear las tablas y añadir datos
 
 // IMPORTANTE
-// Ejecución: node./db/initDB.js
+// Ejecución: node./baseDatos/initDB.js
 
 require('dotenv').config();
-const { formatDateToDB } = require('../helpers');
 
 const getDB = require('./db');
 
