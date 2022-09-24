@@ -1,12 +1,17 @@
 require('dotenv').config();
 const fileUpload = require('express-fileupload');
 const express = require('express');
-
+const path = require('path');
+const { PORT, UPLOAD_DIRECTORY } = process.env;
 const app = express();
 const cors = require('cors');
 app.use(cors());
 app.use(fileUpload());
 app.use(express.json());
+
+//middleware de los recursos estaticos
+//EJ: http://localhost:4000/fichero.jpg
+app.use(express.static(path.join(__dirname, UPLOAD_DIRECTORY)));
 
 const morgan = require('morgan');
 app.use(morgan('dev'));
@@ -33,7 +38,6 @@ const {
   buscarCarpeta,
 } = require('./controladores/carpetas');
 const { propietario } = require('./middlewares/propietario');
-const { PORT } = process.env;
 
 //*****END POINTS USUARIOS  */
 app.get('/usuarios/', propietario, mostrarUsuario);
@@ -58,7 +62,7 @@ app.post('/folder/crearCarpeta/', propietario, nuevaCarpeta);
 app.get('/folder/buscarCarpeta', propietario, buscarCarpeta);
 app.put('/folder/editarNombre/:idCarpeta', propietario, editarNombreC);
 app.put('/folder/editarPermisos/:idCarpeta', propietario, editarPermisosD);
-app.delete('/folder/eliminarCarpeta/:idCarpeta', propietario, eliminarCarpeta);
+app.delete('/folder/eliminar/:idCarpeta', propietario, eliminarCarpeta);
 
 app.use((error, req, res, next) => {
   res
