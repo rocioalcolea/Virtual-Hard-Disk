@@ -133,6 +133,11 @@ const eliminarDirectorio = async (idUsuario, idDirectorio) => {
   try {
     connection = await getDB();
 
+    /*  const [archivo] = await connection.query(
+      `SELECT name_encriptado FROM archivos WHERE id_usuario=? AND id_archivo=? 
+      `,
+      [idUsuario, idArchivo]
+    ); */
     //FALTAAAAAA.....!!!!!!  CODIGO PARA ELIMINAR TODOS LOS ARCHIVOS QUE CONTIENE ESTE DIRECTORIO
     const [directorio] = await connection.query(
       `DELETE FROM directorios where id_usuario=? AND id_directorio=?
